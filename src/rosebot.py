@@ -211,7 +211,7 @@ class ArmAndClaw(object):
         self.motor.reset_position()
         self.motor.turn_on(-100)
         while True:
-            if self.motor.get_position() == (14.2 * 360):
+            if self.motor.get_position() >= (14.1 * 360):
                 self.motor.turn_off()
                 self.motor.reset_position()
                 break
@@ -251,9 +251,9 @@ class SensorSystem(object):
     def __init__(self):
         self.touch_sensor = TouchSensor(1)
         # These need the port numbers
-        self.color_sensor = ColorSensor(3)
-        self.ir_proximity_sensor = InfraredProximitySensor(4)
-        self.ir_beacon_sensor = InfraredBeaconSensor(2)
+       # self.color_sensor = ColorSensor(3)
+        #self.ir_proximity_sensor = InfraredProximitySensor(4)
+       # self.ir_beacon_sensor = InfraredBeaconSensor(2)
 
         # These need some configuration
         # self.beacon_system =
