@@ -83,6 +83,14 @@ class DriveSystem(object):
         Makes the robot go straight (forward if speed > 0, else backward)
         at the given speed for the given number of seconds.
         """
+        start = time.time()
+        self.go(speed, speed)
+        # Note: using   time.sleep   to control the time to run is better.
+        # We do it with a WHILE loop here for pedagogical reasons.
+        while True:
+            if time.time() - start >= seconds:
+                self.stop()
+                break
 
     def go_straight_for_inches_using_time(self, inches, speed):
         """
@@ -97,6 +105,18 @@ class DriveSystem(object):
         at the given speed for the given number of inches,
         using the encoder (degrees traveled sensor) built into the motors.
         """
+        self.left_motor.reset_position()
+        self.right_motor.reset_position()
+        inches_per_degree = self.left_motor.WheelCircumference / 360
+        degrees_to_move = inches // inches_per_degree
+        self.left_motor.turn_on(speed)
+        self.right_motor.turn_on(speed)
+        while True:
+            self.left_motor.get_position()
+            if abs(self.left_motor.get_position()) >= degrees_to_move:
+                self.left_motor.turn_off()
+                self.right_motor.turn_off()
+                break
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the color sensor.
@@ -107,6 +127,14 @@ class DriveSystem(object):
         Goes straight at the given speed until the intensity returned
         by the color_sensor is less than the given intensity.
         """
+        self.left_motor.turn_on(speed)
+        self.right_motor.turn_on(speed)
+        color_sensor = ColorSensor(3)
+        while True:
+            if color_sensor.get_reflected_light_intensity() < intensity:
+                self.left_motor.turn_off()
+                self.right_motor.turn_off()
+                break
 
     def go_straight_until_intensity_is_greater_than(self, intensity, speed):
         """
@@ -284,7 +312,14 @@ class SoundSystem(object):
         Plays an increasing sequence of short tones,
         stopping when the touch sensor is pressed.
         """
-
+        t = ToneMaker()
+        f = 100
+        touch = TouchSensor(1)
+        while True:
+            t.tone(f,30)
+            f = f + 10
+            if touch.is_pressed():
+                break
 
 ###############################################################################
 #    LEDSystem
@@ -337,6 +372,7 @@ class LEDSystem(object):
 ###############################################################################
 ###############################################################################
 class Motor(object):
+    WheelCircumference = 1.3 * math.pi
 
     def __init__(self, port, motor_type='large'):
         # port must be 'A', 'B', 'C', or 'D'.  Use 'arm' as motor_type for Arm.
