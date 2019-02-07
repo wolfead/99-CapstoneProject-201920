@@ -236,6 +236,7 @@ class ArmAndClaw(object):
                (i.e., 14.2 motor revolutions),
           3. Resets the motor's position to 0.
         """
+        print('calibrate_arm')
         self.raise_arm()
         self.motor.reset_position()
         self.motor.turn_on(-100)
@@ -252,6 +253,7 @@ class ArmAndClaw(object):
         The robot must have previously calibrated its Arm.
         """
         # self.calibrate_arm()
+        print('move arm to position')
         self.motor.turn_on(100)
         print(desired_arm_position)
         while True:
