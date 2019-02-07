@@ -224,7 +224,7 @@ class ArmAndClaw(object):
         # self.calibrate_arm()
         self.motor.turn_on(100)
         while True:
-            if self.motor.get_position() == desired_arm_position:
+            if self.motor.get_position() >= desired_arm_position:
                 self.motor.turn_off()
                 break
 
@@ -235,7 +235,7 @@ class ArmAndClaw(object):
         """
         self.motor.turn_on(-100)
         while True:
-            if self.motor.get_position() == 0:
+            if self.motor.get_position() >= 3:
                 self.motor.turn_off()
                 break
 
