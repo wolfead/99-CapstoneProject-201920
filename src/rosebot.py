@@ -208,12 +208,14 @@ class ArmAndClaw(object):
           3. Resets the motor's position to 0.
         """
         self.raise_arm()
-        self.motor.reset_position()
+        # self.motor.reset_position()
         self.motor.turn_on(-100)
         while True:
-            if self.motor.get_position() >= (14.1 * 360):
+            # if self.motor.get_position() >= (14.1 * 360):
+            if self.motor.get_position() < 10:
                 self.motor.turn_off()
                 self.motor.reset_position()
+                print(self.motor.get_position(), "should be in move arm now")
                 break
     
     def move_arm_to_position(self, desired_arm_position):
@@ -223,6 +225,7 @@ class ArmAndClaw(object):
         """
         # self.calibrate_arm()
         self.motor.turn_on(100)
+        print(desired_arm_position)
         while True:
             if self.motor.get_position() >= desired_arm_position:
                 self.motor.turn_off()
