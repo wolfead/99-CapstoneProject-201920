@@ -21,10 +21,10 @@ def main():
     # run_test_calibrate()
     # run_test_move_rose_to_position()
     # run_test_lower_arm()
-    # real_thing()
-    run_test_go_straight_for_seconds()
-    run_test_go_straight_for_inches_using_time()
-    run_test_go_straight_for_inches_using_encoder()
+    real_thing()
+    # run_test_go_straight_for_seconds()
+    # run_test_go_straight_for_inches_using_time()
+    # run_test_go_straight_for_inches_using_encoder()
 
 
 def real_thing():
