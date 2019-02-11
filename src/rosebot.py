@@ -69,8 +69,7 @@ class DriveSystem(object):
         self.left_motor = Motor('B')
         self.right_motor = Motor('C')
 
-        self.left_motor.wheel_circumference = 1.3 * math.pi
-        self.right_motor.wheel_circumference = 1.3 * math.pi
+        self.wheel_circumference = 1.3 * math.pi
 
     # -------------------------------------------------------------------------
     # Methods for driving with no external sensor (just the built-in encoders).
@@ -114,7 +113,7 @@ class DriveSystem(object):
         """
         self.left_motor.reset_position()
         self.right_motor.reset_position()
-        inches_per_degree = self.left_motor.wheel_circumference / 360
+        inches_per_degree = self.wheel_circumference * (180/math.pi)
         degrees_to_move = inches // inches_per_degree
         self.left_motor.turn_on(speed)
         self.right_motor.turn_on(speed)
