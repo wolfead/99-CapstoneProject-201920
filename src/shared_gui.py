@@ -293,6 +293,15 @@ def handle_inches_using_encoder(inches_entry_box_2, speed_entry_box_2, mqtt_send
     print('go forward for', inches_entry_box_2.get(), "inches at", speed_entry_box_2.get())
     mqtt_sender.send_message('go_inches_using_encoder', [inches_entry_box_2.get(), speed_entry_box_2.get()])
 
+
+def handle_beeper(number, mqtt_sender):
+    """
+      :type  number:   ttk.Entry
+      :type  mqtt_sender:  com.MqttClient
+    """
+    print('I will beep', number.get(), 'times')
+    mqtt_sender.send_message('beeper', [number.get()])
+
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.
 ###############################################################################
