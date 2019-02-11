@@ -61,9 +61,9 @@ class Handler(object):
             self.robot.sound_system.beeper.beep().wait()
 
     def tone(self, freq, dur):
-        self.robot.sound_system.play_tone(int(freq), int(dur)).wait()
+        self.robot.sound_system.tone_maker.play_tone(int(freq), int(dur)).wait()
 
     def speech(self, s):
         print('speaking')
-        self.robot.sound_system.speak_phrase(s).wait()
+        self.robot.sound_system.speech_maker.speak_phrase(s).wait()
 
