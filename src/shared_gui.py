@@ -245,7 +245,7 @@ def handle_right(left_entry_box, right_entry_box, mqtt_sender):
       :type  mqtt_sender:      com.MqttClient
     """
     print('turn right', left_entry_box.get(), '-', right_entry_box.get())
-    mqtt_sender.send_message('backward', [left_entry_box.get(), right_entry_box.get()])
+    mqtt_sender.send_message('right', [left_entry_box.get(), right_entry_box.get()])
 
 
 def handle_stop(mqtt_sender):
@@ -255,6 +255,11 @@ def handle_stop(mqtt_sender):
     """
     print('stop')
     mqtt_sender.send_message('stop', [])
+
+
+def handle_go_for_seconds(inches_entry_box, speed_entry_box, mqtt_sender):
+    print('go forward for', inches_entry_box.get(), "at", speed_entry_box.get())
+    mqtt_sender.send_message('go_forward_for_seconds', [inches_entry_box.get(), speed_entry_box.get()])
 
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.
