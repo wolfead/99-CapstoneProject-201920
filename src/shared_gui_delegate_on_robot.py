@@ -11,7 +11,8 @@
 class Handler(object):
     def __init__(self, robot):
         self.robot = robot
-        self.is_time_to_stop = False
+        
+
         """
         :type robot: rosebot.RoseBot
         """
@@ -66,5 +67,6 @@ class Handler(object):
     def speech(self, s):
         self.robot.sound_system.speak_phrase(s)
 
-    def quit(self):
-        self.is_time_to_stop = True
+    # def beep_n(self, number):
+    #     self.robot.SoundSystem.beep_number_of_times()
+

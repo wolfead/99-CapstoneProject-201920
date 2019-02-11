@@ -35,6 +35,8 @@ def real_thing():
 
     while True:
         time.sleep(0.01)
+        if self.time_to_stop == True:
+            break
 
 def run_test_arm():
     robot = rosebot.RoseBot()
