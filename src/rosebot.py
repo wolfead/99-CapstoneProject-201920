@@ -113,7 +113,7 @@ class DriveSystem(object):
         """
         self.left_motor.reset_position()
         self.right_motor.reset_position()
-        inches_per_degree = self.wheel_circumference * (180/math.pi)
+        inches_per_degree = self.wheel_circumference / 360
         degrees_to_move = inches // inches_per_degree
         self.left_motor.turn_on(speed)
         self.right_motor.turn_on(speed)
