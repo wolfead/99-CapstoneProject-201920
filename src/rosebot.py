@@ -337,6 +337,18 @@ class SoundSystem(object):
             if touch.is_pressed():
                 break
 
+    def beep_number_of_times(self, n):
+        for k in range(n):
+            self.beeper.beep()
+
+    def play_tone(self, freq, duration):
+        t = ToneMaker()
+        t.tone(freq, duration)
+
+    def speak_phrase(self, s):
+        s = s
+
+
 ###############################################################################
 #    LEDSystem
 ###############################################################################
