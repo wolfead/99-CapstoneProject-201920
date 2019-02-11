@@ -268,6 +268,24 @@ def handle_go_for_seconds(inches_entry_box, speed_entry_box, mqtt_sender):
     mqtt_sender.send_message('go_forward_for_seconds', [inches_entry_box.get(), speed_entry_box.get()])
 
 
+def handle_inches_using_time(inches_entry_box, speed_entry_box, mqtt_sender):
+    """
+      :type  inches_entry_box:   ttk.Entry
+      :type  speed_entry_box:  ttk.Entry
+      :type  mqtt_sender:  com.MqttClient
+    """
+    print('go forward for', inches_entry_box.get(), "at", speed_entry_box.get())
+    mqtt_sender.send_message('go_inches_using_time', [inches_entry_box.get(), speed_entry_box.get()])
+
+
+def handle_inches_using_encoder(inches_entry_box, speed_entry_box, mqtt_sender):
+    """
+      :type  inches_entry_box:   ttk.Entry
+      :type  speed_entry_box:  ttk.Entry
+      :type  mqtt_sender:  com.MqttClient
+    """
+    print('go forward for', inches_entry_box.get(), "at", speed_entry_box.get())
+    mqtt_sender.send_message('go_inches_using_encoder', [inches_entry_box.get(), speed_entry_box.get()])
 
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.

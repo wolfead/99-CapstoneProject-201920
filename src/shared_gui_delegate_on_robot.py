@@ -39,8 +39,14 @@ class Handler(object):
     def raise_arm(self):
         self.robot.arm_and_claw.raise_arm()
 
-    def go_forward_for_secconds(self, inches, speed):
+    def go_forward_for_seconds(self, inches, speed):
         self.robot.drive_system.go_straight_for_seconds(int(inches), int(speed))
+
+    def go_inches_using_time(self, inches, speed):
+        self.robot.drive_system.go_straight_for_inches_using_time(int(inches), int(speed))
+
+    def go_inches_using_encoder(self, inches, speed):
+        self.robot.drive_system.go_straight_for_inches_using_encoder(int(inches), int(speed))
 
     def lower_arm(self):
         self.robot.arm_and_claw.lower_arm()
