@@ -437,7 +437,6 @@ class Motor(object):
             self._motor = ev3.LargeMotor('out' + port)
         elif motor_type == 'medium':
             self._motor = ev3.MediumMotor('out' + port)
-        self.Wheel_Circumference = 1.2 * math.pi
 
     def turn_on(self, speed):  # speed must be -100 to 100
         self._motor.run_direct(duty_cycle_sp=speed)
