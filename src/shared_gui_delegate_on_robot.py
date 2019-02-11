@@ -65,5 +65,5 @@ class Handler(object):
 
     def speech(self, s):
         print('speaking')
-        self.robot.sound_system.speech_maker.speak_phrase(s).wait()
+        self.robot.sound_system.speech_maker.speak(s).wait()
 
