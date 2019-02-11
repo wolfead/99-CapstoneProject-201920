@@ -58,17 +58,17 @@ def run_test_lower_arm():
 
 def run_test_go_straight_for_seconds():
     robot = rosebot.RoseBot()
-    robot.go_straight_for_seconds()
+    robot.drive_system.go_straight_for_seconds(1, 100)
 
 
 def run_test_go_straight_for_inches_using_time():
     robot = rosebot.RoseBot()
-    robot.go_straight_for_inches_using_time()
+    robot.drive_system.go_straight_for_inches_using_time(10, 75)
 
 
 def run_test_go_straight_for_inches_using_encoder():
     robot = rosebot.RoseBot()
-    robot.go_straight_for_inches_using_encoder()
+    robot.drive_system.go_straight_for_inches_using_encoder(10, 50)
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
