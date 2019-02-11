@@ -72,6 +72,36 @@ def get_teleoperation_frame(window, mqtt_sender):
         left_speed_entry, right_speed_entry, mqtt_sender)
     stop_button["command"] = lambda: handle_stop(mqtt_sender)
 
+    # Go forward for seconds gui buttons
+    for_seconds_label = ttk.Label(frame, text="Go Forward for Seconds")
+    for_seconds_label.grid(row=6, column=0)
+    for_seconds = ttk.Entry(frame, width=8)
+    for_seconds.grid(row=7, column=0)
+
+    for_seconds_speed_label = ttk.Label(frame, text="For Seconds Speed (0 to 100)")
+    for_seconds_speed_label.grid(row=6, column=2)
+    for_seconds_speed = ttk.Entry(frame, width=8)
+    for_seconds_speed.grid(row=7, column=2)
+
+    for_seconds_speed_button = ttk.Button(frame, text="Forward for Seconds")
+    for_seconds_speed_button.grid(row=8, column=1)
+
+    # GO forward for inches using time buttons
+    using_time_label = ttk.Label(frame, text="Inches using Time")
+    using_time_label.grid(row=9, column=0)
+    using_time = ttk.Entry(frame, width=8)
+    using_time.grid(row=10, column=0)
+
+    using_time_speed_label = ttk.Label(frame, text="Speed (0 to 100)")
+    using_time_speed_label.grid(row=9, column=2)
+    using_time_speed = ttk.Entry(frame, width=8)
+    using_time_speed.grid(row=10, column=2)
+
+    using_time_button = ttk.Button(frame, text="Forward Inches Using Time")
+    using_time_button.grid(row=11, column=1)
+
+
+
     return frame
 
 
