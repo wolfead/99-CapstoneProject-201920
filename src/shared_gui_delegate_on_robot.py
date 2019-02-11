@@ -25,16 +25,16 @@ class Handler(object):
         self.robot.drive_system.left_motor.turn_off()
 
     def backward(self, left_motor_speed, right_motor_speed):
-        self.robot.drive_system.right_motor.turn_on(int(-(left_motor_speed)))
-        self.robot.drive_system.left_motor.turn_on(int(-(right_motor_speed)))
+        self.robot.drive_system.right_motor.turn_on(-(int(left_motor_speed)))
+        self.robot.drive_system.left_motor.turn_on(-(int(right_motor_speed)))
 
     def left(self, left_speed, right_speed):
-        self.robot.drive_system.left_motor.turn_on(int(-(left_speed)))
+        self.robot.drive_system.left_motor.turn_on(-(int(left_speed)))
         self.robot.drive_system.right_motor.turn_on(int(right_speed))
 
     def right(self, left_speed, right_speed):
         self.robot.drive_system.left_motor.turn_on(int(left_speed))
-        self.robot.drive_system.right_motor.turn_on(int(-(right_speed)))
+        self.robot.drive_system.right_motor.turn_on(-(int(right_speed)))
 
     def raise_arm(self):
         self.robot.arm_and_claw.raise_arm()
