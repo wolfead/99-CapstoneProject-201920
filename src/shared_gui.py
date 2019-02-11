@@ -48,6 +48,48 @@ def get_teleoperation_frame(window, mqtt_sender):
     right_button = ttk.Button(frame, text="Right")
     stop_button = ttk.Button(frame, text="Stop")
 
+    # Go forward for seconds gui buttons
+    for_seconds_label = ttk.Label(frame, text="Go Forward for Seconds")
+    for_seconds_label.grid(row=6, column=0)
+    seconds_entry_box = ttk.Entry(frame, width=8)
+    seconds_entry_box.grid(row=7, column=0)
+
+    for_seconds_speed_label = ttk.Label(frame, text="For Seconds Speed (0 to 100)")
+    for_seconds_speed_label.grid(row=6, column=2)
+    speed_entry_box = ttk.Entry(frame, width=8)
+    speed_entry_box.grid(row=7, column=2)
+
+    for_seconds_speed_button = ttk.Button(frame, text="Forward for Seconds")
+    for_seconds_speed_button.grid(row=8, column=1)
+
+    # Go forward for inches using time buttons
+    using_time_label = ttk.Label(frame, text="Inches using Time")
+    using_time_label.grid(row=9, column=0)
+    inches_entry_box_1 = ttk.Entry(frame, width=8)
+    inches_entry_box_1.grid(row=10, column=0)
+
+    using_time_speed_label = ttk.Label(frame, text="Speed (0 to 100)")
+    using_time_speed_label.grid(row=9, column=2)
+    speed_entry_box_1 = ttk.Entry(frame, width=8)
+    speed_entry_box_1.grid(row=10, column=2)
+
+    using_time_button = ttk.Button(frame, text="Forward Inches Using Time")
+    using_time_button.grid(row=11, column=1)
+
+    # Go straight for inches using encoder
+    using_encoder_label = ttk.Label(frame, text="Inches using Encoder")
+    using_encoder_label.grid(row=12, column=0)
+    inches_entry_box_2 = ttk.Entry(frame, width=8)
+    inches_entry_box_2.grid(row=13, column=0)
+
+    using_encoder_speed_label = ttk.Label(frame, text="Speed (0 to 100)")
+    using_encoder_speed_label.grid(row=12, column=2)
+    speed_entry_box_2 = ttk.Entry(frame, width=8)
+    speed_entry_box_2.grid(row=13, column=2)
+
+    using_encoder_button = ttk.Button(frame, text="Forward Inches Using Encoder")
+    using_encoder_button.grid(row=14, column=1)
+
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
     left_speed_label.grid(row=1, column=0)
@@ -71,48 +113,12 @@ def get_teleoperation_frame(window, mqtt_sender):
     right_button["command"] = lambda: handle_right(
         left_speed_entry, right_speed_entry, mqtt_sender)
     stop_button["command"] = lambda: handle_stop(mqtt_sender)
-
-    # Go forward for seconds gui buttons
-    for_seconds_label = ttk.Label(frame, text="Go Forward for Seconds")
-    for_seconds_label.grid(row=6, column=0)
-    for_seconds = ttk.Entry(frame, width=8)
-    for_seconds.grid(row=7, column=0)
-
-    for_seconds_speed_label = ttk.Label(frame, text="For Seconds Speed (0 to 100)")
-    for_seconds_speed_label.grid(row=6, column=2)
-    for_seconds_speed = ttk.Entry(frame, width=8)
-    for_seconds_speed.grid(row=7, column=2)
-
-    for_seconds_speed_button = ttk.Button(frame, text="Forward for Seconds")
-    for_seconds_speed_button.grid(row=8, column=1)
-
-    # Go forward for inches using time buttons
-    using_time_label = ttk.Label(frame, text="Inches using Time")
-    using_time_label.grid(row=9, column=0)
-    using_time = ttk.Entry(frame, width=8)
-    using_time.grid(row=10, column=0)
-
-    using_time_speed_label = ttk.Label(frame, text="Speed (0 to 100)")
-    using_time_speed_label.grid(row=9, column=2)
-    using_time_speed = ttk.Entry(frame, width=8)
-    using_time_speed.grid(row=10, column=2)
-
-    using_time_button = ttk.Button(frame, text="Forward Inches Using Time")
-    using_time_button.grid(row=11, column=1)
-
-    # Go straight for inches using encoder
-    using_encoder_label = ttk.Label(frame, text="Inches using Encoder")
-    using_encoder_label.grid(row=12, column=0)
-    using_encoder = ttk.Entry(frame, width=8)
-    using_encoder.grid(row=13, column=0)
-
-    using_encoder_speed_label = ttk.Label(frame, text="Speed (0 to 100)")
-    using_encoder_speed_label.grid(row=12, column=2)
-    using_encoder_speed = ttk.Entry(frame, width=8)
-    using_encoder_speed.grid(row=13, column=2)
-
-    using_encoder_button = ttk.Button(frame, text="Forward Inches Using Encoder")
-    using_encoder_button.grid(row=14, column=1)
+    for_seconds_speed_button["command"] = lambda: handle_go_for_seconds(
+        seconds_entry_box, speed_entry_box, mqtt_sender)
+    using_time_button["command"] = lambda: handle_inches_using_time(
+        inches_entry_box_1, speed_entry_box_1, mqtt_sender)
+    using_encoder_button["command"] = lambda: handle_inches_using_encoder(
+        inches_entry_box_2, speed_entry_box_2, mqtt_sender)
 
     return frame
 
@@ -268,24 +274,24 @@ def handle_go_for_seconds(seconds_entry_box, speed_entry_box, mqtt_sender):
     mqtt_sender.send_message('go_forward_for_seconds', [seconds_entry_box.get(), speed_entry_box.get()])
 
 
-def handle_inches_using_time(inches_entry_box, speed_entry_box, mqtt_sender):
+def handle_inches_using_time(inches_entry_box_1, speed_entry_box_1, mqtt_sender):
     """
-      :type  inches_entry_box:   ttk.Entry
-      :type  speed_entry_box:  ttk.Entry
+      :type  inches_entry_box_1:   ttk.Entry
+      :type  speed_entry_box_1:  ttk.Entry
       :type  mqtt_sender:  com.MqttClient
     """
-    print('go forward for', inches_entry_box.get(), "inches at", speed_entry_box.get())
-    mqtt_sender.send_message('go_inches_using_time', [inches_entry_box.get(), speed_entry_box.get()])
+    print('go forward for', inches_entry_box_1.get(), "inches at", speed_entry_box_1.get())
+    mqtt_sender.send_message('go_inches_using_time', [inches_entry_box_1.get(), speed_entry_box_1.get()])
 
 
-def handle_inches_using_encoder(inches_entry_box, speed_entry_box, mqtt_sender):
+def handle_inches_using_encoder(inches_entry_box_2, speed_entry_box_2, mqtt_sender):
     """
-      :type  inches_entry_box:   ttk.Entry
-      :type  speed_entry_box:  ttk.Entry
+      :type  inches_entry_box_2:   ttk.Entry
+      :type  speed_entry_box_2:  ttk.Entry
       :type  mqtt_sender:  com.MqttClient
     """
-    print('go forward for', inches_entry_box.get(), "inches at", speed_entry_box.get())
-    mqtt_sender.send_message('go_inches_using_encoder', [inches_entry_box.get(), speed_entry_box.get()])
+    print('go forward for', inches_entry_box_2.get(), "inches at", speed_entry_box_2.get())
+    mqtt_sender.send_message('go_inches_using_encoder', [inches_entry_box_2.get(), speed_entry_box_2.get()])
 
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.
