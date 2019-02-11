@@ -33,6 +33,7 @@ class RoseBot(object):
         self.sensor_system = SensorSystem()
         self.drive_system = DriveSystem(self.sensor_system)
         self.arm_and_claw = ArmAndClaw(self.sensor_system.touch_sensor)
+        self.sound_system = SoundSystem()
 
 
 ###############################################################################

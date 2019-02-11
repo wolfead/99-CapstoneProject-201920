@@ -24,6 +24,7 @@ def get_teleoperation_frame(window, mqtt_sender):
     """
     Constructs and returns a frame on the given window, where the frame
     has Entry and Button objects that control the EV3 robot's motion
+    has Entry and Button objects that control the EV3 robot's motion
     by passing messages using the given MQTT Sender.
       :type  window:       ttk.Frame | ttk.Toplevel
       :type  mqtt_sender:  com.MqttClient
@@ -300,7 +301,7 @@ def handle_beeper(number, mqtt_sender):
       :type  mqtt_sender:  com.MqttClient
     """
     print('I will beep', number.get(), 'times')
-    mqtt_sender.send_message('beeper', [number.get()])
+    mqtt_sender.send_message('beep_n', [number.get()])
 
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.

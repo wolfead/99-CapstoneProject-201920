@@ -57,6 +57,9 @@ class Handler(object):
     def move_arm_to(self, desired_arm_position):
         self.robot.arm_and_claw.move_arm_to_position(int(desired_arm_position))
 
+    def beep_n(self, n):
+        self.robot.sound_system.beep_number_of_times(int(n))
+
     # def beep_n(self, number):
     #     self.robot.SoundSystem.beep_number_of_times()
 
