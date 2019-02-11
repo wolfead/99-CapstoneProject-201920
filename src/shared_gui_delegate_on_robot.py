@@ -7,7 +7,6 @@
   Winter term, 2018-2019.
 """
 
-
 class Handler(object):
     def __init__(self, robot):
         self.robot = robot
@@ -62,9 +61,9 @@ class Handler(object):
             self.robot.sound_system.beeper.beep().wait()
 
     def tone(self, freq, dur):
-        self.robot.sound_system.play_tone(int(freq), int(dur))
+        self.robot.sound_system.play_tone(int(freq), int(dur)).wait()
 
     def speech(self, s):
         print('speaking')
-        self.robot.sound_system.speak_phrase(s)
+        self.robot.sound_system.speak_phrase(s).wait()
 
