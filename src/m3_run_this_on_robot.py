@@ -26,8 +26,9 @@ def real_thing():
     mqtt_receiver.connect_to_pc()
 
     while True:
-        time.sleep(0.01)
-
+        time.sleep(.01)
+        if delegate.is_time_to_stop:
+            break
 
 
 # -----------------------------------------------------------------------------
