@@ -60,6 +60,12 @@ class Handler(object):
     def beep_n(self, n):
         self.robot.sound_system.beep_number_of_times(int(n))
 
+    def tone(self, freq, dur):
+        self.robot.sound_system.play_tone(int(freq), int(dur))
+
+    def speech(self, s):
+        self.robot.sound_system.speak_phrase(s)
+
     # def beep_n(self, number):
     #     self.robot.SoundSystem.beep_number_of_times()
 
