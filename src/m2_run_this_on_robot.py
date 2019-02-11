@@ -57,16 +57,19 @@ def run_test_lower_arm():
 
 
 def run_test_go_straight_for_seconds():
+    print(1)
     robot = rosebot.RoseBot()
     robot.drive_system.go_straight_for_seconds(1, 100)
 
 
 def run_test_go_straight_for_inches_using_time():
+    print(2)
     robot = rosebot.RoseBot()
     robot.drive_system.go_straight_for_inches_using_time(10, 75)
 
 
 def run_test_go_straight_for_inches_using_encoder():
+    print(3)
     robot = rosebot.RoseBot()
     robot.drive_system.go_straight_for_inches_using_encoder(10, 50)
 
