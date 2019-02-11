@@ -14,7 +14,7 @@ class Handler(object):
         self.is_time_to_stop = False
         """
         :type robot: rosebot.RoseBot
-        """ 
+        """
 
     def forward(self, left_wheel_speed, right_wheel_speed):
         print('got forward', left_wheel_speed, right_wheel_speed)
