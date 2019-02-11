@@ -104,6 +104,15 @@ def get_teleoperation_frame(window, mqtt_sender):
     right_button.grid(row=4, column=2)
     backward_button.grid(row=5, column=1)
 
+    # BEEP BUTTONS
+    beep_label = ttk.Label(frame, text="Number of times to beep")
+    beep_label.grid(row=15, column=0)
+    number = ttk.Entry(frame, width=12)
+    number.grid(row=16, column=0)
+
+    beeper_button = ttk.Button(frame, text="Beep number of times")
+    beeper_button.grid(row=16, column=2)
+
     # Set the button callbacks:
     forward_button["command"] = lambda: handle_forward(
         left_speed_entry, right_speed_entry, mqtt_sender)
@@ -120,6 +129,7 @@ def get_teleoperation_frame(window, mqtt_sender):
         inches_entry_box_1, speed_entry_box_1, mqtt_sender)
     using_encoder_button["command"] = lambda: handle_inches_using_encoder(
         inches_entry_box_2, speed_entry_box_2, mqtt_sender)
+    beeper_button["command"] = lambda: handle_beeper(number, mqtt_sender)
 
     return frame
 
@@ -302,6 +312,26 @@ def handle_beeper(number, mqtt_sender):
     """
     print('I will beep', number.get(), 'times')
     mqtt_sender.send_message('beep_n', [number.get()])
+
+
+def handle_tone(frequency, duration, mqtt_sender):
+    """
+      :type  frequency:   ttk.Entry
+      :type  duration:  ttk.Entry
+      :type  mqtt_sender:  com.MqttClient
+    """
+    print('I will play a tone at frequency', frequency.get(), 'for the duration', duration.get())
+    mqtt_sender.send_message('tone', [frequency.get(), duration.get()])
+
+
+def handle_speech(s, mqtt_sender):
+    """
+      :type  s:   ttk.Entry
+      :type  mqtt_sender:  com.MqttClient
+    """
+    print("I will speak phrase", s.get())
+    mqtt_sender.send_message('speech', [s.get()])
+
 
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.
