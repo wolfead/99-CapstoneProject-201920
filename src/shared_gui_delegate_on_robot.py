@@ -58,7 +58,8 @@ class Handler(object):
         self.robot.arm_and_claw.move_arm_to_position(int(desired_arm_position))
 
     def beep_n(self, n):
-        self.robot.sound_system.beep_number_of_times(int(n))
+        for k in range(int(n)):
+            self.robot.sound_system.beeper.beep().wait()
 
     def tone(self, freq, dur):
         self.robot.sound_system.play_tone(int(freq), int(dur))
