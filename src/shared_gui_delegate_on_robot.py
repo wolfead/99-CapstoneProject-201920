@@ -66,6 +66,7 @@ class Handler(object):
         self.robot.sound_system.play_tone(int(freq), int(dur))
 
     def speech(self, s):
+        print('speaking')
         self.robot.sound_system.speak_phrase(s)
 
     # def beep_n(self, number):
