@@ -21,7 +21,7 @@ def main():
     # run_test_calibrate()
     # run_test_move_rose_to_position()
     # run_test_lower_arm()
-    real_thing()
+    # real_thing()
 
 
 def real_thing():
@@ -51,6 +51,21 @@ def run_test_move_rose_to_position():
 def run_test_lower_arm():
     robot = rosebot.RoseBot()
     robot.arm_and_claw.lower_arm()
+
+
+def run_test_go_straight_for_seconds():
+    robot = rosebot.RoseBot()
+    robot.go_straight_for_seconds()
+
+
+def run_test_go_straight_for_inches_using_time():
+    robot = rosebot.RoseBot()
+    robot.go_straight_for_inches_using_time()
+
+
+def run_test_go_straight_for_inches_using_encoder():
+    robot = rosebot.RoseBot()
+    robot.go_straight_for_inches_using_encoder()
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
