@@ -99,6 +99,11 @@ class DriveSystem(object):
         for the given number of inches, using the approximate
         conversion factor of 10.0 inches per second at 100 (full) speed.
         """
+        # NOTE to students:  The constant and formula below are not accurate
+        seconds_per_inch_at_100 = 10.0  # 1 sec = 10 inches at 100 speed
+        seconds = abs(inches * seconds_per_inch_at_100 / speed)
+
+        self.go_straight_for_seconds(seconds, speed)
 
     def go_straight_for_inches_using_encoder(self, inches, speed):
         """
@@ -142,6 +147,14 @@ class DriveSystem(object):
         Goes straight at the given speed until the intensity returned
         by the color_sensor is greater than the given intensity.
         """
+        self.left_motor.turn_on(speed)
+        self.right_motor.turn_on(speed)
+        color_sensor = ColorSensor(3)
+        while True:
+            if color_sensor.get_reflected_light_intensity() > intensity:
+                self.left_motor.turn_off()
+                self.right_motor.turn_off()
+                break
 
     def go_straight_until_color_is(self, color, speed):
         """
