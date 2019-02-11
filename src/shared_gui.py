@@ -233,7 +233,7 @@ def handle_left(left_entry_box, right_entry_box, mqtt_sender):
       :type  right_entry_box:  ttk.Entry
       :type  mqtt_sender:      com.MqttClient
     """
-    print('turn left', '1', left_entry_box.get(), right_entry_box.get())
+    print('turn left', left_entry_box.get(), right_entry_box.get())
     mqtt_sender.send_message('left', [left_entry_box.get(), right_entry_box.get()])
 
 
@@ -267,7 +267,7 @@ def handle_go_for_seconds(seconds_entry_box, speed_entry_box, mqtt_sender):
     print('go forward for', seconds_entry_box.get(), " seconds at", speed_entry_box.get())
     mqtt_sender.send_message('go_forward_for_seconds', [seconds_entry_box.get(), speed_entry_box.get()])
 
- 
+
 def handle_inches_using_time(inches_entry_box, speed_entry_box, mqtt_sender):
     """
       :type  inches_entry_box:   ttk.Entry
