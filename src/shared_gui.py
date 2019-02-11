@@ -256,11 +256,12 @@ def handle_move_arm_to_position(arm_position_entry, mqtt_sender):
       :type  mqtt_sender:        com.MqttClient
     """
     print("move arm to position")
-    mqtt_sender.send_message('move_arm_to', arm_position_entry.get())
+    mqtt_sender.send_message('move_arm_to', [arm_position_entry.get()])
 
 ###############################################################################
 # Handlers for Buttons in the Control frame.
 ###############################################################################
+
 
 def handle_quit(mqtt_sender):
     """
@@ -269,6 +270,7 @@ def handle_quit(mqtt_sender):
     """
     # print('quit')
     # mqtt_sender.send_message('quit', [])
+
 
 def handle_exit(mqtt_sender):
     """
