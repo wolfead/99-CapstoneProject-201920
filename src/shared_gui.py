@@ -20,6 +20,115 @@ from tkinter import ttk
 import time
 
 
+def get_drive_system_frame(window, mqtt_sender):
+    """
+    Constructs and returns a frame on the given window, where the frame
+    has Entry and Button objects that control the EV3 robot's motion
+    has Entry and Button objects that control the EV3 robot's motion
+    by passing messages using the given MQTT Sender.
+      :type  window:       ttk.Frame | ttk.Toplevel
+      :type  mqtt_sender:  com.MqttClient
+    """
+    # Construct the frame to return:
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Teleoperation")
+    left_speed_label = ttk.Label(frame, text="Left wheel speed (0 to 100)")
+    right_speed_label = ttk.Label(frame, text="Right wheel speed (0 to 100)")
+
+    left_speed_entry = ttk.Entry(frame, width=8)
+    left_speed_entry.insert(0, "100")
+    right_speed_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
+    right_speed_entry.insert(0, "100")
+
+    forward_button = ttk.Button(frame, text="Forward")
+    backward_button = ttk.Button(frame, text="Backward")
+    left_button = ttk.Button(frame, text="Left")
+    right_button = ttk.Button(frame, text="Right")
+    stop_button = ttk.Button(frame, text="Stop")
+
+    # Go forward for seconds gui buttons
+    for_seconds_label = ttk.Label(frame, text="Go Forward for Seconds")
+    for_seconds_label.grid(row=6, column=0)
+    seconds_entry_box = ttk.Entry(frame, width=8)
+    seconds_entry_box.grid(row=7, column=0)
+
+    for_seconds_speed_label = ttk.Label(frame, text="For Seconds Speed (0 to 100)")
+    for_seconds_speed_label.grid(row=6, column=2)
+    speed_entry_box = ttk.Entry(frame, width=8)
+    speed_entry_box.grid(row=7, column=2)
+
+    for_seconds_speed_button = ttk.Button(frame, text="Forward for Seconds")
+    for_seconds_speed_button.grid(row=8, column=1)
+
+    # Go forward for inches using time buttons
+    using_time_label = ttk.Label(frame, text="Inches using Time")
+    using_time_label.grid(row=9, column=0)
+    inches_entry_box_1 = ttk.Entry(frame, width=8)
+    inches_entry_box_1.grid(row=10, column=0)
+
+    using_time_speed_label = ttk.Label(frame, text="Speed (0 to 100)")
+    using_time_speed_label.grid(row=9, column=2)
+    speed_entry_box_1 = ttk.Entry(frame, width=8)
+    speed_entry_box_1.grid(row=10, column=2)
+
+    using_time_button = ttk.Button(frame, text="Forward Inches Using Time")
+    using_time_button.grid(row=11, column=1)
+
+    # Go straight for inches using encoder
+    using_encoder_label = ttk.Label(frame, text="Inches using Encoder")
+    using_encoder_label.grid(row=12, column=0)
+    inches_entry_box_2 = ttk.Entry(frame, width=8)
+    inches_entry_box_2.grid(row=13, column=0)
+
+    using_encoder_speed_label = ttk.Label(frame, text="Speed (0 to 100)")
+    using_encoder_speed_label.grid(row=12, column=2)
+    speed_entry_box_2 = ttk.Entry(frame, width=8)
+    speed_entry_box_2.grid(row=13, column=2)
+
+    using_encoder_button = ttk.Button(frame, text="Forward Inches Using Encoder")
+    using_encoder_button.grid(row=14, column=1)
+
+    # Grid the widgets:
+    frame_label.grid(row=0, column=1)
+    left_speed_label.grid(row=1, column=0)
+    right_speed_label.grid(row=1, column=2)
+    left_speed_entry.grid(row=2, column=0)
+    right_speed_entry.grid(row=2, column=2)
+
+    forward_button.grid(row=3, column=1)
+    left_button.grid(row=4, column=0)
+    stop_button.grid(row=4, column=1)
+    right_button.grid(row=4, column=2)
+    backward_button.grid(row=5, column=1)
+
+
+    # Set the button callbacks:
+    forward_button["command"] = lambda: handle_forward(
+        left_speed_entry, right_speed_entry, mqtt_sender)
+    backward_button["command"] = lambda: handle_backward(
+        left_speed_entry, right_speed_entry, mqtt_sender)
+    left_button["command"] = lambda: handle_left(
+        left_speed_entry, right_speed_entry, mqtt_sender)
+    right_button["command"] = lambda: handle_right(
+        left_speed_entry, right_speed_entry, mqtt_sender)
+    stop_button["command"] = lambda: handle_stop(mqtt_sender)
+    for_seconds_speed_button["command"] = lambda: handle_go_for_seconds(
+        seconds_entry_box, speed_entry_box, mqtt_sender)
+    using_time_button["command"] = lambda: handle_inches_using_time(
+        inches_entry_box_1, speed_entry_box_1, mqtt_sender)
+    using_encoder_button["command"] = lambda: handle_inches_using_encoder(
+        inches_entry_box_2, speed_entry_box_2, mqtt_sender)
+    beeper_button["command"] = lambda: handle_beeper(number, mqtt_sender)
+    tone_button["command"] = lambda: handle_tone(frequency, duration, mqtt_sender)
+    speech_button["command"] = lambda: handle_speech(s, mqtt_sender)
+
+    return frame
+
+
+
 def get_teleoperation_frame(window, mqtt_sender):
     """
     Constructs and returns a frame on the given window, where the frame
@@ -353,6 +462,97 @@ def handle_speech(s, mqtt_sender):
     """
     print("I will speak phrase", s.get())
     mqtt_sender.send_message('speech', [s.get()])
+
+
+##############################################################################
+# More drive system functions put into another frame
+##############################################################################
+
+
+def handle_go_straight_until_intensity_is_less_than(intensity_box_1, speed_box_3, mqtt_sender):
+    """
+      :type  intensity_box_1:   ttk.Entry
+      :type  speed_box_3:   ttk.Entry
+      :type  mqtt_sender:  com.MqttClient
+    """
+    print("I will go straight at speed ", speed_box_3.get(), "until intensity is less than ", intensity_box_1.get())
+    mqtt_sender.send_message('go_straight_until_intensity_is_less_than', [intensity_box_1.get(), speed_box_3.get])
+
+
+def handle_go_straight_until_intensity_is_greater_than(intensity_box_2, speed_entry_box_5, mqtt_sender):
+    """
+      :type  intensity_box_2:   ttk.Entry
+      :type  speed_entry_box_5:   ttk.Entry
+      :type  mqtt_sender:  com.MqttClient
+    """
+    print("I will go straight at speed ", speed_entry_box_5.get(), "until intensity is greater than ",
+          intensity_box_2.get())
+    mqtt_sender.send_message('go_straight_until_intensity_is_greater_than',
+                             [intensity_box_2.get(), speed_entry_box_5.get()])
+
+
+def handle_go_straight_until_color_is(color_box_1, speed_entry_box_6, mqtt_sender):
+    """
+      :type  color_box_1:   ttk.Entry
+      :type  speed_entry_box_6:   ttk.Entry
+      :type  mqtt_sender:  com.MqttClient
+    """
+    print("I will go straight at speed ", speed_entry_box_6.get(), "until the color is ", color_box_1.get())
+    mqtt_sender.send_message('go_straight_until_color_is', [color_box_1.get(), speed_entry_box_6.get()])
+
+
+def handle_go_straight_until_color_is_not(color_box_2, speed_entry_box_7, mqtt_sender):
+    """
+      :type  color_box_2:   ttk.Entry
+      :type  speed_entry_box_7:   ttk.Entry
+      :type  mqtt_sender:  com.MqttClient
+    """
+    print("I will go straight until the color is not ", color_box_2.get(), "at speed ", speed_entry_box_7.get())
+    mqtt_sender.send_message('go_straight_until_color_is_not', [color_box_2.get(), speed_entry_box_7.get()])
+
+
+def handle_go_forward_until_distance_is_less_than(inches_entry_box_4, speed_entry_box_4, mqtt_sender):
+    """
+      :type  inches_entry_box_4:   ttk.Entry
+      :type  speed_entry_box_4:   ttk.Entry
+      :type  mqtt_sender:  com.MqttClient
+    """
+    print("I will go straight at speed ", speed_entry_box_4.get(), "until distance is less than "
+                                                                   "", inches_entry_box_4.get())
+    mqtt_sender.send_message('go_forward_until_distance_is_less_than', [inches_entry_box_4.get(),
+                                                                        speed_entry_box_4.get()])
+
+
+def go_backward_until_distance_is_greater_than(inches, speed):
+    self.robot.drive_system.go_backward_until_distance_is_greater_than(int(inches), int(speed))
+
+
+def go_until_distance_is_within(delta, inches, speed):
+    self.robot.drive_system.go_until_distance_is_within(int(delta), int(inches), int(speed))
+
+
+def spin_clockwise_until_beacon_heading_is_nonnegative(speed):
+    self.robot.drive_system.spin_clockwise_until_beacon_heading_is_nonnegative(int(speed))
+
+
+def spin_counterclockwise_until_beacon_heading_is_nonpositive(speed):
+    self.robot.drive_system.spin_counterclockwise_until_beacon_heading_is_nonpositive(int(speed))
+
+
+def go_straight_to_the_beacon(inches, speed):
+    self.robot.drive_system.go_straight_to_the_beacon(int(inches), int(speed))
+
+
+def display_camera_data(self):
+    pass
+
+
+def spin_clockwise_until_sees_object(speed, area):
+    self.robot.drive_system.spin_clockwise_until_sees_object(int(speed), int(area))
+
+
+def spin_counterclockwise_until_sees_object(speed, area):
+    self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed), int(area))
 
 
 ###############################################################################

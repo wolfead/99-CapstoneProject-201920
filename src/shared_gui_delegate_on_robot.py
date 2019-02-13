@@ -67,3 +67,42 @@ class Handler(object):
         print('speaking')
         self.robot.sound_system.speech_maker.speak(s).wait()
 
+    def go_straight_until_intensity_is_less_than(self, intensity, speed):
+        self.robot.drive_system.go_straight_until_intensity_is_less_than(int(intensity, int(speed)))
+
+    def go_straight_until_intensity_is_greater_than(self, intensity, speed):
+        self.robot.drive_system.go_straight_until_intensity_is_greater_than(int(intensity), int(speed))
+
+    def go_straight_until_color_is(self, color, speed):
+        self.robot.drive_system.go_straight_until_color_is(color, int(speed))
+
+    def go_straight_until_color_is_not(self, color, speed):
+        self.robot.drive_system.go_straight_until_color_is_not(color, int(speed))
+
+    def go_forward_until_distance_is_less_than(self, inches, speed):
+        self.robot.drive_system.go_forward_until_distance_is_less_than(int(inches), int(speed))
+
+    def go_backward_until_distance_is_greater_than(self, inches, speed):
+        self.robot.drive_system.go_backward_until_distance_is_greater_than(int(inches), int(speed))
+
+    def go_until_distance_is_within(self, delta, inches, speed):
+        self.robot.drive_system.go_until_distance_is_within(int(delta), int(inches), int(speed))
+
+    def spin_clockwise_until_beacon_heading_is_nonnegative(self, speed):
+        self.robot.drive_system.spin_clockwise_until_beacon_heading_is_nonnegative(int(speed))
+
+    def spin_counterclockwise_until_beacon_heading_is_nonpositive(self, speed):
+        self.robot.drive_system.spin_counterclockwise_until_beacon_heading_is_nonpositive(int(speed))
+
+    def go_straight_to_the_beacon(self, inches, speed):
+        self.robot.drive_system.go_straight_to_the_beacon(int(inches), int(speed))
+
+    def display_camera_data(self):
+        pass
+
+    def spin_clockwise_until_sees_object(self, speed, area):
+        self.robot.drive_system.spin_clockwise_until_sees_object(int(speed), int(area))
+
+    def spin_counterclockwise_until_sees_object(self, speed, area):
+        self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed), int(area))
+
