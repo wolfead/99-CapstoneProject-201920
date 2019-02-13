@@ -93,6 +93,15 @@ def get_drive_system_frame(window, mqtt_sender):
     handle_go_straight_until_color_is_not_button = ttk.Button(frame, text="Straight until color is not")
     handle_go_straight_until_color_is_not_button.grid(row=8, column=2)
 
+    handle_go_forward_until_distance_is_less_than(inches_entry_box_4, speed_entry_box_4, mqtt_sender):
+
+    inches_entry_box_4_label = ttk.Label(frame, text='inches')
+    inches_entry_box_4_label.grid(row=9, column=0)
+    speed_entry_box_4_label = ttk.Label(frame, text='speed')
+    speed_entry_box_4_label.grid(row=9, column=1)
+
+
+
     # Call back to buttons ################################################################
     display_camera_data_button["command"] = lambda: handle_display_camera_data(mqtt_sender)
     go_straight_until_intensity_is_less_than_button["command"] = lambda:\
