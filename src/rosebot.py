@@ -171,8 +171,10 @@ class DriveSystem(object):
         """
         self.go(speed, speed)
         color_number = self.sensor_system.color_sensor.get_color_number_from_color_name(color)
-        if self.sensor_system.color_sensor.get_color() == color_number:
-            self.stop()
+        while True:
+            if self.sensor_system.color_sensor.get_color() == color_number:
+                self.stop()
+                break
 
     def go_straight_until_color_is_not(self, color, speed):
         """
