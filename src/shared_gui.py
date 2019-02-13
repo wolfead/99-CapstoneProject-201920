@@ -36,8 +36,14 @@ def get_drive_system_frame(window, mqtt_sender):
     # Construct the widgets on the frame:
     frame_label = ttk.Label(frame, text="DriveSystem")
     frame_label.grid()
-    return frame
 
+    display_camera_data_button = ttk.Button(frame, text='display camera data on gui')
+    display_camera_data_button.grid(row=0, column=0)
+
+    # Call back to buttons
+    display_camera_data_button["command"] = lambda: handle_display_camera_data(mqtt_sender)
+
+    return frame
 
 
 def get_teleoperation_frame(window, mqtt_sender):
