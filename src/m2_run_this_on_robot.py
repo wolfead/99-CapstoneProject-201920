@@ -21,10 +21,13 @@ def main():
     # run_test_calibrate()
     # run_test_move_rose_to_position()
     # run_test_lower_arm()
-    real_thing()
+    # real_thing()
     # run_test_go_straight_for_seconds()
     # run_test_go_straight_for_inches_using_time()
     # run_test_go_straight_for_inches_using_encoder()
+    # run_test_display_camera_data()
+    # run_test_turn_clockwise_object_spotted()
+    run_test_turn_counter_clockwise_object_spotted()
 
 
 def real_thing():
@@ -74,6 +77,22 @@ def run_test_go_straight_for_inches_using_encoder():
     print(3)
     robot = rosebot.RoseBot()
     robot.drive_system.go_straight_for_inches_using_encoder(10, 50)
+
+
+def run_test_display_camera_data():
+    robot = rosebot.RoseBot()
+    robot.drive_system.display_camera_data()
+
+
+def run_test_turn_clockwise_object_spotted():
+    robot = rosebot.RoseBot()
+    robot.drive_system.spin_clockwise_until_sees_object(50, 50)
+
+
+def run_test_turn_counter_clockwise_object_spotted():
+    robot = rosebot.RoseBot()
+    robot.drive_system.spin_counterclockwise_until_sees_object(50, 25)
+
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
