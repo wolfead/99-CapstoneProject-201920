@@ -20,7 +20,10 @@ def main():
     """
     # real_thing()
     robot = rosebot.RoseBot()
-    robot.drive_system.go_straight_until_color_is('white',50)
+    robot.drive_system.go_backward_until_distance_is_greater_than(12, 50)
+    # while True:
+    #     time.sleep(0.5)
+    #     print(robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())
 
 def real_thing():
     robot = rosebot.RoseBot()

@@ -210,8 +210,9 @@ class DriveSystem(object):
         the given number of inches from the nearest object that it senses.
         Assumes that it senses an object when it starts.
         """
-        self.go(-speed,-speed)
+        self.go(-speed, -speed)
         while True:
+            time.sleep(0.2)
             if self.sensor_system.ir_proximity_sensor.get_distance_in_inches() >= inches:
                 self.stop()
                 break
@@ -616,8 +617,8 @@ class InfraredProximitySensor(object):
         in inches, where about 39.37 inches (which is 100 cm) means no object
         is within its field of vision.
         """
-        inches_per_cm = 2.54
-        return 48 * inches_per_cm * self.get_distance() / 100
+        cm_per_inch = 2.54
+        return (48 / cm_per_inch) * self.get_distance() / 100
 
 
 ###############################################################################
