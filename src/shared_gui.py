@@ -34,14 +34,75 @@ def get_drive_system_frame(window, mqtt_sender):
     frame.grid()
 
     # Construct the widgets on the frame:
-    frame_label = ttk.Label(frame, text="DriveSystem")
-    frame_label.grid()
+    frame_label = ttk.Label(frame, text="Drive System")
+    frame_label.grid(row=0, column=1)
 
-    display_camera_data_button = ttk.Button(frame, text='display camera data on gui')
-    display_camera_data_button.grid(row=0, column=0)
+    display_camera_data_button = ttk.Button(frame, text='Display Camera data on GUI')
+    display_camera_data_button.grid(row=25, column=1)
 
-    # Call back to buttons
+    intensity_box_1_label = ttk.Label(frame, text="intensity")
+    intensity_box_1_label.grid(row=1, column=0)
+    speed_box_3_label = ttk.Label(frame, text="speed")
+    speed_box_3_label.grid(row=1, column=1)
+
+    intensity_box_1 = ttk.Entry(frame, width=8)
+    intensity_box_1.grid(row=2, column=0)
+    speed_box_3 = ttk.Entry(frame, width=8)
+    speed_box_3.grid(row=2, column=1)
+
+    go_straight_until_intensity_is_less_than_button = ttk.Button(frame, text="Straight until intensity is less than")
+    go_straight_until_intensity_is_less_than_button.grid(row=2, column=2)
+
+    intensity_box_2_label = ttk.Label(frame, text='intensity')
+    intensity_box_2_label.grid(row=3, column=0)
+    speed_box_5_label = ttk.Label(frame, text='speed')
+    speed_box_5_label.grid(row=3, column=1)
+
+    intensity_box_2 = ttk.Entry(frame, width=8)
+    intensity_box_2.grid(row=4, column=0)
+    speed_entry_box_5 = ttk.Entry(frame, width=8)
+    speed_entry_box_5.grid(row=4, column=1)
+
+    handle_go_straight_until_intensity_is_greater_than_button = ttk.Button(frame, text="Straight until intensity "
+                                                                                       "is greater than")
+    handle_go_straight_until_intensity_is_greater_than_button.grid(row=4, column=2)
+
+    color_box_1_label = ttk.Label(frame, text="Color")
+    color_box_1_label.grid(row=5, column=0)
+    speed_entry_box_6_label = ttk.Label(frame, text="speed")
+    speed_entry_box_6_label.grid(row=5, column=1)
+
+    color_box_1 = ttk.Entry(frame, width=8)
+    color_box_1.grid(row=6, column=0)
+    speed_entry_box_6 = ttk.Entry(frame, width=8)
+    speed_entry_box_6.grid(row=6, column=1)
+
+    handle_go_straight_until_color_is_button = ttk.Button(frame, text="Straight until color is")
+    handle_go_straight_until_color_is_button.grid(row=6, column=2)
+
+    color_box_2_label = ttk.Label(frame, text="Color")
+    color_box_2_label.grid(row=7, column=0)
+    speed_entry_box_7_label = ttk.Label(frame, text='Speed')
+    speed_entry_box_7_label.grid(row=7, column=1)
+
+    color_box_2 = ttk.Entry(frame, width=8)
+    color_box_2.grid(row=8, column=0)
+    speed_entry_box_7 = ttk.Entry(frame, width=8)
+    speed_entry_box_7.grid(row=8, column=1)
+
+    handle_go_straight_until_color_is_not_button = ttk.Button(frame, text="Straight until color is not")
+    handle_go_straight_until_color_is_not_button.grid(row=8, column=2)
+
+    # Call back to buttons ################################################################
     display_camera_data_button["command"] = lambda: handle_display_camera_data(mqtt_sender)
+    go_straight_until_intensity_is_less_than_button["command"] = lambda:\
+        handle_go_straight_until_intensity_is_less_than(intensity_box_1, speed_box_3, mqtt_sender)
+    handle_go_straight_until_intensity_is_greater_than_button["command"] = lambda: \
+        handle_go_straight_until_intensity_is_greater_than(intensity_box_2, speed_entry_box_5, mqtt_sender)
+    handle_go_straight_until_color_is_button["command"] = lambda: handle_go_straight_until_color_is(
+        color_box_1, speed_entry_box_6, mqtt_sender)
+    handle_go_straight_until_color_is_not_button["command"] = lambda: handle_go_straight_until_color_is_not(
+        color_box_2, speed_entry_box_7, mqtt_sender)
 
     return frame
 
