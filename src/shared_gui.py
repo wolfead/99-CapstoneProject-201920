@@ -34,97 +34,8 @@ def get_drive_system_frame(window, mqtt_sender):
     frame.grid()
 
     # Construct the widgets on the frame:
-    frame_label = ttk.Label(frame, text="Teleoperation")
-    left_speed_label = ttk.Label(frame, text="Left wheel speed (0 to 100)")
-    right_speed_label = ttk.Label(frame, text="Right wheel speed (0 to 100)")
-
-    left_speed_entry = ttk.Entry(frame, width=8)
-    left_speed_entry.insert(0, "100")
-    right_speed_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
-    right_speed_entry.insert(0, "100")
-
-    forward_button = ttk.Button(frame, text="Forward")
-    backward_button = ttk.Button(frame, text="Backward")
-    left_button = ttk.Button(frame, text="Left")
-    right_button = ttk.Button(frame, text="Right")
-    stop_button = ttk.Button(frame, text="Stop")
-
-    # Go forward for seconds gui buttons
-    for_seconds_label = ttk.Label(frame, text="Go Forward for Seconds")
-    for_seconds_label.grid(row=6, column=0)
-    seconds_entry_box = ttk.Entry(frame, width=8)
-    seconds_entry_box.grid(row=7, column=0)
-
-    for_seconds_speed_label = ttk.Label(frame, text="For Seconds Speed (0 to 100)")
-    for_seconds_speed_label.grid(row=6, column=2)
-    speed_entry_box = ttk.Entry(frame, width=8)
-    speed_entry_box.grid(row=7, column=2)
-
-    for_seconds_speed_button = ttk.Button(frame, text="Forward for Seconds")
-    for_seconds_speed_button.grid(row=8, column=1)
-
-    # Go forward for inches using time buttons
-    using_time_label = ttk.Label(frame, text="Inches using Time")
-    using_time_label.grid(row=9, column=0)
-    inches_entry_box_1 = ttk.Entry(frame, width=8)
-    inches_entry_box_1.grid(row=10, column=0)
-
-    using_time_speed_label = ttk.Label(frame, text="Speed (0 to 100)")
-    using_time_speed_label.grid(row=9, column=2)
-    speed_entry_box_1 = ttk.Entry(frame, width=8)
-    speed_entry_box_1.grid(row=10, column=2)
-
-    using_time_button = ttk.Button(frame, text="Forward Inches Using Time")
-    using_time_button.grid(row=11, column=1)
-
-    # Go straight for inches using encoder
-    using_encoder_label = ttk.Label(frame, text="Inches using Encoder")
-    using_encoder_label.grid(row=12, column=0)
-    inches_entry_box_2 = ttk.Entry(frame, width=8)
-    inches_entry_box_2.grid(row=13, column=0)
-
-    using_encoder_speed_label = ttk.Label(frame, text="Speed (0 to 100)")
-    using_encoder_speed_label.grid(row=12, column=2)
-    speed_entry_box_2 = ttk.Entry(frame, width=8)
-    speed_entry_box_2.grid(row=13, column=2)
-
-    using_encoder_button = ttk.Button(frame, text="Forward Inches Using Encoder")
-    using_encoder_button.grid(row=14, column=1)
-
-    # Grid the widgets:
-    frame_label.grid(row=0, column=1)
-    left_speed_label.grid(row=1, column=0)
-    right_speed_label.grid(row=1, column=2)
-    left_speed_entry.grid(row=2, column=0)
-    right_speed_entry.grid(row=2, column=2)
-
-    forward_button.grid(row=3, column=1)
-    left_button.grid(row=4, column=0)
-    stop_button.grid(row=4, column=1)
-    right_button.grid(row=4, column=2)
-    backward_button.grid(row=5, column=1)
-
-
-    # Set the button callbacks:
-    forward_button["command"] = lambda: handle_forward(
-        left_speed_entry, right_speed_entry, mqtt_sender)
-    backward_button["command"] = lambda: handle_backward(
-        left_speed_entry, right_speed_entry, mqtt_sender)
-    left_button["command"] = lambda: handle_left(
-        left_speed_entry, right_speed_entry, mqtt_sender)
-    right_button["command"] = lambda: handle_right(
-        left_speed_entry, right_speed_entry, mqtt_sender)
-    stop_button["command"] = lambda: handle_stop(mqtt_sender)
-    for_seconds_speed_button["command"] = lambda: handle_go_for_seconds(
-        seconds_entry_box, speed_entry_box, mqtt_sender)
-    using_time_button["command"] = lambda: handle_inches_using_time(
-        inches_entry_box_1, speed_entry_box_1, mqtt_sender)
-    using_encoder_button["command"] = lambda: handle_inches_using_encoder(
-        inches_entry_box_2, speed_entry_box_2, mqtt_sender)
-    beeper_button["command"] = lambda: handle_beeper(number, mqtt_sender)
-    tone_button["command"] = lambda: handle_tone(frequency, duration, mqtt_sender)
-    speech_button["command"] = lambda: handle_speech(s, mqtt_sender)
-
+    frame_label = ttk.Label(frame, text="DriveSystem")
+    frame_label.grid()
     return frame
 
 
@@ -577,8 +488,12 @@ def handle_go_straight_to_the_beacon(inches_entry_box_6, speed_entry_box_12, mqt
     mqtt_sender.send_message('go_straight_to_the_beacon', [inches_entry_box_6.get(), speed_entry_box_12.get()])
 
 
-def handle_display_camera_data(self):
-    pass
+def handle_display_camera_data(mqtt_sender):
+    """
+      :type  mqtt_sender:  com.MqttClient
+    """
+    print("Display camera data on the gui")
+    mqtt_sender.send_message('display_camera_data')
 
 
 def handle_spin_clockwise_until_sees_object(speed_entry_box_13, area_entry_box_1, mqtt_sender):
