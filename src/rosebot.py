@@ -189,6 +189,7 @@ class DriveSystem(object):
         while True:
             if self.sensor_system.color_sensor.get_color() != color_number:
                 self.stop()
+                break
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared proximity sensor.
