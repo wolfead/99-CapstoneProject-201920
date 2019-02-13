@@ -20,7 +20,7 @@ def main():
     """
     # real_thing()
     robot = rosebot.RoseBot()
-    robot.drive_system.go_straight_until_intensity_is_less_than(50,50)
+    robot.drive_system.go_straight_until_intensity_is_greater_than(50,50)
 
 def real_thing():
     robot = rosebot.RoseBot()
