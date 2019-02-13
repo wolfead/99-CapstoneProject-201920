@@ -561,6 +561,7 @@ class ColorSensor(object):
         """
         return self._color_sensor.color
 
+
     def get_color_as_name(self):
         """
         Same as  get_color  but returns the color as a STRING, in particular,
