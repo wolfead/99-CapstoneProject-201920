@@ -523,36 +523,83 @@ def handle_go_forward_until_distance_is_less_than(inches_entry_box_4, speed_entr
                                                                         speed_entry_box_4.get()])
 
 
-def go_backward_until_distance_is_greater_than(inches, speed):
-    self.robot.drive_system.go_backward_until_distance_is_greater_than(int(inches), int(speed))
+def handle_go_backward_until_distance_is_greater_than(inches_entry_box_3, speed_entry_box_8, mqtt_sender):
+    """
+      :type  inches_entry_box_3:   ttk.Entry
+      :type  speed_entry_box_8:   ttk.Entry
+      :type  mqtt_sender:  com.MqttClient
+    """
+    print("I will go backward at speed ", speed_entry_box_8.get(), "until the distance is greater than",
+          inches_entry_box_3.get())
+    mqtt_sender.send_message('go_backward_until_distance_is_greater_than', [inches_entry_box_3.get(),
+                                                                            speed_entry_box_8.get()])
 
 
-def go_until_distance_is_within(delta, inches, speed):
-    self.robot.drive_system.go_until_distance_is_within(int(delta), int(inches), int(speed))
+def handle_go_until_distance_is_within(delta_entry_box_1, inches_entry_box_5, speed_entry_box_9, mqtt_sender):
+    """
+      :type  delta_entry_box_1:    ttk.Entry
+      :type  inches_entry_box_5:   ttk.Entry
+      :type  speed_entry_box_9:   ttk.Entry
+      :type  mqtt_sender:  com.MqttClient
+    """
+    print("I will go forward until the distance is within", inches_entry_box_5.get(), "at speed ",
+          speed_entry_box_9.get())
+    mqtt_sender.send_message('go_until_distance_is_within', [delta_entry_box_1.get(), inches_entry_box_5.get(),
+                                                             speed_entry_box_9.get()])
 
 
-def spin_clockwise_until_beacon_heading_is_nonnegative(speed):
-    self.robot.drive_system.spin_clockwise_until_beacon_heading_is_nonnegative(int(speed))
+def handle_spin_clockwise_until_beacon_heading_is_nonnegative(speed_entry_box_10, mqtt_sender):
+    """
+      :type  speed_entry_box_10:   ttk.Entry
+      :type  mqtt_sender:  com.MqttClient
+    """
+    print("I will spin clockwise until the beacon heading is nonnegative at speed", speed_entry_box_10.get())
+    mqtt_sender.send_message('spin_clockwise_until_beacon_heading_is_nonnegative', [speed_entry_box_10.get()])
 
 
-def spin_counterclockwise_until_beacon_heading_is_nonpositive(speed):
-    self.robot.drive_system.spin_counterclockwise_until_beacon_heading_is_nonpositive(int(speed))
+def handle_spin_counterclockwise_until_beacon_heading_is_nonpositive(speed_entry_box_11, mqtt_sender):
+    """
+      :type  speed_entry_box_11:   ttk.Entry
+      :type  mqtt_sender:  com.MqttClient
+    """
+    print("I will spin counterclockwise until the beacon heading is nonpositive at speed", speed_entry_box_11.get())
+    mqtt_sender.send_message('spin_counterclockwise_until_beacon_heading_is_nonpositive', [speed_entry_box_11.get()])
 
 
-def go_straight_to_the_beacon(inches, speed):
-    self.robot.drive_system.go_straight_to_the_beacon(int(inches), int(speed))
+def handle_go_straight_to_the_beacon(inches_entry_box_6, speed_entry_box_12, mqtt_sender):
+    """
+      :type  inches_entry_box_6:   ttk.Entry
+      :type  speed_entry_box_12:   ttk.Entry
+      :type  mqtt_sender:  com.MqttClient
+    """
+    print("I will go straight until the beacon reads less than", inches_entry_box_6.get(), 'at speed',
+          speed_entry_box_12.get())
+    mqtt_sender.send_message('go_straight_to_the_beacon', [inches_entry_box_6.get(), speed_entry_box_12.get()])
 
 
-def display_camera_data(self):
+def handle_display_camera_data(self):
     pass
 
 
-def spin_clockwise_until_sees_object(speed, area):
-    self.robot.drive_system.spin_clockwise_until_sees_object(int(speed), int(area))
+def handle_spin_clockwise_until_sees_object(speed_entry_box_13, area_entry_box_1, mqtt_sender):
+    """
+      :type  area_entry_box_1:   ttk.Entry
+      :type  speed_entry_box_13:   ttk.Entry
+      :type  mqtt_sender:  com.MqttClient
+    """
+    print("I will spin clockwise until the camera sees the object at speed", speed_entry_box_13.get())
+    mqtt_sender.send_message('spin_clockwise_until_sees_object', [speed_entry_box_13.get(), area_entry_box_1.get()])
 
 
-def spin_counterclockwise_until_sees_object(speed, area):
-    self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed), int(area))
+def handle_spin_counterclockwise_until_sees_object(speed_entry_box_14, area_entry_box_2, mqtt_sender):
+    """
+      :type  area_entry_box_2:   ttk.Entry
+      :type  speed_entry_box_14:   ttk.Entry
+      :type  mqtt_sender:  com.MqttClient
+    """
+    print("I will spin counterclockwise until I see an object at speed ", speed_entry_box_14.get())
+    mqtt_sender.send_message('spin_counterclockwise_until_sees_object', [speed_entry_box_14.get(),
+                                                                         area_entry_box_2.get()])
 
 
 ###############################################################################
