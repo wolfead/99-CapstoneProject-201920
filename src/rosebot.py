@@ -204,6 +204,7 @@ class DriveSystem(object):
             if self.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= inches:
                 self.stop()
                 break
+
     def go_backward_until_distance_is_greater_than(self, inches, speed):
         """
         Goes straight at the given speed until the robot is greater than
