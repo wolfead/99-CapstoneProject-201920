@@ -27,8 +27,8 @@ def main():
     # run_test_go_straight_for_inches_using_encoder()
     # run_test_display_camera_data()
     # run_test_turn_clockwise_object_spotted()
-    run_test_turn_counter_clockwise_object_spotted()
-
+    # run_test_turn_counter_clockwise_object_spotted()
+    run_test_make_tones_and_pickup(440, 30)
 
 def real_thing():
     robot = rosebot.RoseBot()
@@ -78,7 +78,6 @@ def run_test_go_straight_for_inches_using_encoder():
     robot = rosebot.RoseBot()
     robot.drive_system.go_straight_for_inches_using_encoder(10, 50)
 
-
 def run_test_display_camera_data():
     robot = rosebot.RoseBot()
     robot.drive_system.display_camera_data()
@@ -92,6 +91,27 @@ def run_test_turn_clockwise_object_spotted():
 def run_test_turn_counter_clockwise_object_spotted():
     robot = rosebot.RoseBot()
     robot.drive_system.spin_counterclockwise_until_sees_object(50, 25)
+
+
+def run_test_make_tones_and_pickup(freq, delta):
+    robot = rosebot.RoseBot()
+    robot.arm_and_claw.calibrate_arm()
+    dur = 300
+    robot.drive_system.go(25, 25)
+    dist = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+    while True:
+        robot.sound_system.tone_maker.play_tone(freq, dur)
+        time.sleep(0.3)
+        if dist <= robot.sensor_system.ir_proximity_sensor.get_distance_in_inches():
+            freq = freq - delta
+        if dist >= robot.sensor_system.ir_proximity_sensor.get_distance_in_inches():
+            freq = freq + delta
+        if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 2:
+            robot.drive_system.stop()
+            robot.drive_system.go_straight_for_inches_using_encoder(4, 25)
+            robot.arm_and_claw.move_arm_to_position(3000)
+            break
+        dist = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
 
 
 # -----------------------------------------------------------------------------
