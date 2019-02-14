@@ -146,7 +146,7 @@ class Handler(object):
     def find_and_pick_up_counterclockwise(self, speed):
         self.robot.drive_system.go(-int(speed), int(speed))
         while True:
-            if 160 < self.robot.sensor_system.camera.get_biggest_blob().center.x < 180:
+            if 150 < self.robot.sensor_system.camera.get_biggest_blob().center.x < 165:
                 self.robot.drive_system.stop()
                 break
         self.robot.arm_and_claw.calibrate_arm()
@@ -171,7 +171,7 @@ class Handler(object):
     def find_and_pick_up_clockwise(self, speed):
         self.robot.drive_system.go(int(speed), -int(speed))
         while True:
-            if 160 < self.robot.sensor_system.camera.get_biggest_blob().center.x < 180 :
+            if 150 < self.robot.sensor_system.camera.get_biggest_blob().center.x < 165 :
                 self.robot.drive_system.stop()
                 break
         self.robot.arm_and_claw.calibrate_arm()
