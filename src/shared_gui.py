@@ -68,14 +68,14 @@ def get_tubuyo_frame(window, mqtt_sender):
     handel_pick_up_object_beeper_button.grid(row=9, column=1)
 
     # call back functions
-    handel_run_follow_a_color_button["command"] = lambda: handel_run_follow_a_color(mqtt_sender)
-    handel_pick_up_object_with_cycles_button["command"] = lambda: handel_pick_up_object_with_cycles(
+    handel_run_follow_a_color_button["command"] = lambda: handle_run_follow_a_color(mqtt_sender)
+    handel_pick_up_object_with_cycles_button["command"] = lambda: handle_pick_up_object_with_cycles(
         speed_2, mqtt_sender)
-    handel_find_and_pick_up_clockwise_button["command"] = lambda: handel_find_and_pick_up_clockwise(
+    handel_find_and_pick_up_clockwise_button["command"] = lambda: handle_find_and_pick_up_clockwise(
         speed_3, mqtt_sender)
-    handel_find_and_pick_up_counterclockwise_button["command"] = lambda: handel_find_and_pick_up_counterclockwise(
+    handel_find_and_pick_up_counterclockwise_button["command"] = lambda: handle_find_and_pick_up_counterclockwise(
         speed_4, mqtt_sender)
-    handel_pick_up_object_beeper_button["command"] = lambda: handel_pick_up_object_beeper(
+    handel_pick_up_object_beeper_button["command"] = lambda: handle_pick_up_object_beeper(
         speed_5, mqtt_sender)
 
     return frame
@@ -130,14 +130,14 @@ def get_wolfe_frame(window, mqtt_sender):
     handel_pick_up_object_beeper_button.grid(row=9, column=1)
 
     # call back functions
-    handel_run_follow_a_color_button["command"] = lambda: handel_run_follow_a_color(mqtt_sender)
-    handel_pick_up_object_with_cycles_button["command"] = lambda: handel_pick_up_object_with_cycles(
+    handel_run_follow_a_color_button["command"] = lambda: handle_run_follow_a_color(mqtt_sender)
+    handel_pick_up_object_with_cycles_button["command"] = lambda: handle_pick_up_object_with_cycles(
         speed_2, mqtt_sender)
-    handel_find_and_pick_up_clockwise_button["command"] = lambda: handel_find_and_pick_up_clockwise(
+    handel_find_and_pick_up_clockwise_button["command"] = lambda: handle_find_and_pick_up_clockwise(
         speed_3, mqtt_sender)
-    handel_find_and_pick_up_counterclockwise_button["command"] = lambda: handel_find_and_pick_up_counterclockwise(
+    handel_find_and_pick_up_counterclockwise_button["command"] = lambda: handle_find_and_pick_up_counterclockwise(
         speed_4, mqtt_sender)
-    handel_pick_up_object_beeper_button["command"] = lambda: handel_pick_up_object_beeper(
+    handel_pick_up_object_beeper_button["command"] = lambda: handle_pick_up_object_beeper(
         speed_5, mqtt_sender)
 
     return frame
@@ -192,14 +192,14 @@ def get_haiden_frame(window, mqtt_sender):
     handel_pick_up_object_beeper_button.grid(row=9, column=1)
 
     # call back functions
-    handel_run_follow_a_color_button["command"] = lambda: handel_run_follow_a_color(mqtt_sender)
-    handel_pick_up_object_with_cycles_button["command"] = lambda: handel_pick_up_object_with_cycles(
+    handel_run_follow_a_color_button["command"] = lambda: handle_run_follow_a_color(mqtt_sender)
+    handel_pick_up_object_with_cycles_button["command"] = lambda: handle_pick_up_object_with_cycles(
         speed_2, mqtt_sender)
-    handel_find_and_pick_up_clockwise_button["command"] = lambda: handel_find_and_pick_up_clockwise(
+    handel_find_and_pick_up_clockwise_button["command"] = lambda: handle_find_and_pick_up_clockwise(
         speed_3, mqtt_sender)
-    handel_find_and_pick_up_counterclockwise_button["command"] = lambda: handel_find_and_pick_up_counterclockwise(
+    handel_find_and_pick_up_counterclockwise_button["command"] = lambda: handle_find_and_pick_up_counterclockwise(
         speed_4, mqtt_sender)
-    handel_pick_up_object_beeper_button["command"] = lambda: handel_pick_up_object_beeper(
+    handel_pick_up_object_beeper_button["command"] = lambda: handle_pick_up_object_beeper(
         speed_5, mqtt_sender)
 
     return frame
