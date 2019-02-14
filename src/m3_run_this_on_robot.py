@@ -138,7 +138,6 @@ def run_follow_a_color():
         saved_x = robot.sensor_system.camera.get_biggest_blob().center.x
         saved_area = robot.sensor_system.camera.get_biggest_blob().get_area()
 
-def spin_and_pick_up
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
