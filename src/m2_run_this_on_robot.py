@@ -21,7 +21,7 @@ def main():
     # run_test_calibrate()
     # run_test_move_rose_to_position()
     # run_test_lower_arm()
-    # real_thing()
+    real_thing()
     # run_test_go_straight_for_seconds()
     # run_test_go_straight_for_inches_using_time()
     # run_test_go_straight_for_inches_using_encoder()
@@ -29,8 +29,8 @@ def main():
     # run_test_turn_clockwise_object_spotted()
     # run_test_turn_counter_clockwise_object_spotted()
     # run_test_make_tones_and_pickup(440, 30)
-    robot = rosebot.RoseBot()
-    robot.arm_and_claw.calibrate_arm()
+    # robot = rosebot.RoseBot()
+    # robot.arm_and_claw.calibrate_arm()
 
 def real_thing():
     robot = rosebot.RoseBot()
@@ -115,7 +115,27 @@ def run_test_make_tones_and_pickup(freq, delta):
             break
         dist = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
 
+def run_follow_a_color():
+    robot = rosebot.RoseBot()
+    speed = 50
+    saved_x = robot.sensor_system.camera.get_biggest_blob().center.x
+    saved_area = robot.sensor_system.camera.get_biggest_blob().get_area()
+    while True:
+        if saved_x < robot.sensor_system.camera.get_biggest_blob().center.x:
+            robot.drive_system.go(-speed, speed)
+        if saved_x < robot.sensor_system.camera.get_biggest_blob().center.x:
+            robot.drive_system.go(speed, -speed)
+        if saved_x == robot.sensor_system.camera.get_biggest_blob().center.x:
+            robot.drive_system.stop()
 
+        if saved_area < robot.sensor_system.camera.get_biggest_blob().get_area():
+            robot.drive_system.go(speed, speed)
+        if saved_area > robot.sensor_system.camera.get_biggest_blob().get_area():
+            robot.drive_system.go(-speed, -speed)
+        if saved_area == robot.sensor_system.camera.get_biggest_blob().get_area():
+            robot.drive_system.stop()
+        saved_x = robot.sensor_system.camera.get_biggest_blob().center.x
+        saved_area = robot.sensor_system.camera.get_biggest_blob().get_area()
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
