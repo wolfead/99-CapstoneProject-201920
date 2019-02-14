@@ -116,6 +116,7 @@ def pick_up_object_beep(speed):
     robot.arm_and_claw.move_arm_to_position(4000)
     robot.drive_system.stop()
 
+
 def run_follow_a_color():
     robot = rosebot.RoseBot()
     speed = 50

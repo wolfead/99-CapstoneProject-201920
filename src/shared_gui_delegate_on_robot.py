@@ -107,7 +107,7 @@ class Handler(object):
     def spin_counterclockwise_until_sees_object(self, speed, area):
         self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed), int(area))
 
-    def pick_up_object(self, speed):
+    def pick_up_object_beeper(self, speed):
         self.robot.arm_and_claw.calibrate_arm()
         self.robot.drive_system.go(int(speed), int(speed))
         beeper = self.robot.sound_system.beeper
@@ -127,21 +127,93 @@ class Handler(object):
         self.robot.arm_and_claw.move_arm_to_position(4000)
         self.robot.drive_system.stop()
 
-    def find_and_pick_up_counterclockwise(speed):
-        robot = rosebot.RoseBot()
-        robot.drive_system.go(-speed, speed)
+    def find_and_pick_up_counterclockwise(self, speed):
+        self.robot.drive_system.go(-int(speed), int(speed))
         while True:
-            if robot.sensor_system.camera.get_biggest_blob().center.x > 160 and robot.sensor_system.camera.get_biggest_blob().center.x < 180:
-                robot.drive_system.stop()
+            if 160 < self.robot.sensor_system.camera.get_biggest_blob().center.x < 180:
+                self.robot.drive_system.stop()
                 break
-        pick_up_object(speed)
-
-    def find_and_pick_up_clockwise(speed):
-        robot = rosebot.RoseBot()
-        robot.drive_system.go(speed, -speed)
+        self.robot.arm_and_claw.calibrate_arm()
+        self.robot.drive_system.go(int(speed), int(speed))
+        beeper = self.robot.sound_system.beeper
         while True:
-            if robot.sensor_system.camera.get_biggest_blob().center.x > 160 and robot.sensor_system.camera.get_biggest_blob().center.x < 180:
-                robot.drive_system.stop()
+            beeper.beep()
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 2:
+                self.robot.drive_system.stop()
                 break
-        pick_up_object(speed)
+            data1 = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+            time.sleep(0.01)
+            data2 = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+            time.sleep(0.01)
+            data3 = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+            avg = (data1 + data2 + data3) / 3
+            time.sleep(0.01 * (1 + avg))
+        self.robot.drive_system.go_straight_for_inches_using_encoder(3, int(speed))
+        self.robot.arm_and_claw.move_arm_to_position(4000)
+        self.robot.drive_system.stop()
 
+    def find_and_pick_up_clockwise(self, speed):
+        self.robot.drive_system.go(int(speed), -int(speed))
+        while True:
+            if 160 < self.robot.sensor_system.camera.get_biggest_blob().center.x < 180 :
+                self.robot.drive_system.stop()
+                break
+        self.robot.arm_and_claw.calibrate_arm()
+        self.robot.drive_system.go(int(speed), int(speed))
+        beeper = self.robot.sound_system.beeper
+        while True:
+            beeper.beep()
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 2:
+                self.robot.drive_system.stop()
+                break
+            data1 = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+            time.sleep(0.01)
+            data2 = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+            time.sleep(0.01)
+            data3 = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+            avg = (data1 + data2 + data3) / 3
+            time.sleep(0.01 * (1 + avg))
+        self.robot.drive_system.go_straight_for_inches_using_encoder(3, int(speed))
+        self.robot.arm_and_claw.move_arm_to_position(4000)
+        self.robot.drive_system.stop()
+
+    def pick_up_object_with_cycles(self, speed):
+        self.robot.arm_and_claw.calibrate_arm()
+        self.robot.drive_system.go(int(speed), int(speed))
+        while True:
+            cycle()
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 2:
+                self.robot.drive_system.stop()
+                break
+            data1 = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+            time.sleep(0.01)
+            data2 = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+            time.sleep(0.01)
+            data3 = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+            avg = (data1 + data2 + data3) / 3
+            time.sleep(0.01 * (1 + avg))
+        self.robot.drive_system.go_straight_for_inches_using_encoder(3, int(speed))
+        self.robot.arm_and_claw.move_arm_to_position(4000)
+        self.robot.drive_system.stop()
+
+    def run_follow_a_color(self):
+        robot = rosebot.RoseBot()
+        speed = 50
+        saved_x = robot.sensor_system.camera.get_biggest_blob().center.x
+        saved_area = robot.sensor_system.camera.get_biggest_blob().get_area()
+        while True:
+            if saved_x < robot.sensor_system.camera.get_biggest_blob().center.x:
+                robot.drive_system.go(-speed, speed)
+            if saved_x < robot.sensor_system.camera.get_biggest_blob().center.x:
+                robot.drive_system.go(speed, -speed)
+            if saved_x == robot.sensor_system.camera.get_biggest_blob().center.x:
+                robot.drive_system.stop()
+
+            if saved_area < robot.sensor_system.camera.get_biggest_blob().get_area():
+                robot.drive_system.go(speed, speed)
+            if saved_area > robot.sensor_system.camera.get_biggest_blob().get_area():
+                robot.drive_system.go(-speed, -speed)
+            if saved_area == robot.sensor_system.camera.get_biggest_blob().get_area():
+                robot.drive_system.stop()
+            saved_x = robot.sensor_system.camera.get_biggest_blob().center.x
+            saved_area = robot.sensor_system.camera.get_biggest_blob().get_area()
