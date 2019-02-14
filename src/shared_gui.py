@@ -33,7 +33,7 @@ def get_tubuyo_frame(window, mqtt_sender):
     frame.grid()
 
     # Construct the widgets on the frame:
-    frame_label = ttk.Label(frame, text="Alex Tubuyo frame")
+    frame_label = ttk.Label(frame, text="Alex Tabuyo frame")
     frame_label.grid(row=0, column=1)
 
     handel_run_follow_a_color_button = ttk.Button(frame, text='Follow a color')
@@ -116,18 +116,18 @@ def get_wolfe_frame(window, mqtt_sender):
     handel_find_and_pick_up_clockwise_button.grid(row=5, column=1)
 
     speed_4_label = ttk.Label(frame, text="Speed")
-    speed_4_label.grid(row=6, column=0)
+    speed_4_label.grid(row=2, column=2)
     speed_4 = ttk.Entry(frame, width=8)
-    speed_4.grid(row=7, column=0)
+    speed_4.grid(row=3, column=3)
     handel_find_and_pick_up_counterclockwise_button = ttk.Button(frame, text="Pick up counterclockwise")
-    handel_find_and_pick_up_counterclockwise_button.grid(row=7, column=1)
+    handel_find_and_pick_up_counterclockwise_button.grid(row=3, column=3)
 
     speed_5_label = ttk.Label(frame, text="Speed")
-    speed_5_label.grid(row=8, column=0)
+    speed_5_label.grid(row=2, column=2)
     speed_5 = ttk.Entry(frame, width=8)
-    speed_5.grid(row=9, column=0)
+    speed_5.grid(row=3, column=3)
     handel_pick_up_object_beeper_button = ttk.Button(frame, text="Pick up counterclockwise")
-    handel_pick_up_object_beeper_button.grid(row=9, column=1)
+    handel_pick_up_object_beeper_button.grid(row=3, column=3)
 
     # call back functions
     handel_run_follow_a_color_button["command"] = lambda: handel_run_follow_a_color(mqtt_sender)
@@ -141,6 +141,7 @@ def get_wolfe_frame(window, mqtt_sender):
         speed_5, mqtt_sender)
 
     return frame
+
 
 def get_haiden_frame(window, mqtt_sender):
     """
