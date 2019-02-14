@@ -45,7 +45,7 @@ def main():
     # DONE: Implement and call get_my_frames(...)
 
     # -------------------------------------------------------------------------
-    # Grid the frames.
+    # Grid the frames
     # -------------------------------------------------------------------------
     grid_frames(teleop_frame, pick_up_frame, arm_frame, control_frame, drive_system_frame)
 
