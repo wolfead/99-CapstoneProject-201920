@@ -67,6 +67,17 @@ def get_tubuyo_frame(window, mqtt_sender):
     handel_pick_up_object_beeper_button = ttk.Button(frame, text="Pick up with beeper")
     handel_pick_up_object_beeper_button.grid(row=9, column=1)
 
+    freq_label = ttk.Label(frame, text="Frequency")
+    freq_label.grid(row=10, column=0)
+    freq = ttk.Entry(frame, width=8)
+    freq.grid(row=11, column=0)
+    delta_label = ttk.Label(frame, text="Delta")
+    delta_label.grid(row=10, column=1)
+    delta = ttk.Entry(frame, width=8)
+    delta.grid(row=11, column=1)
+    handle_make_tones_and_pickup_button = ttk.Button(frame, text='Make tones and pick up')
+    handle_make_tones_and_pickup_button.grid(row=11, column=2)
+
     # call back functions
     handel_run_follow_a_color_button["command"] = lambda: handle_run_follow_a_color(mqtt_sender)
     handel_pick_up_object_with_cycles_button["command"] = lambda: handle_pick_up_object_with_cycles(
@@ -77,6 +88,7 @@ def get_tubuyo_frame(window, mqtt_sender):
         speed_4, mqtt_sender)
     handel_pick_up_object_beeper_button["command"] = lambda: handle_pick_up_object_beeper(
         speed_5, mqtt_sender)
+    handle_make_tones_and_pickup_button["command"] = lambda: handle_make_tones_and_pickup(freq, delta, mqtt_sender)
 
     return frame
 
@@ -129,6 +141,17 @@ def get_wolfe_frame(window, mqtt_sender):
     handel_pick_up_object_beeper_button = ttk.Button(frame, text="Pick up with beeper")
     handel_pick_up_object_beeper_button.grid(row=9, column=1)
 
+    freq_label = ttk.Label(frame, text="Frequency")
+    freq_label.grid(row=10, column=0)
+    freq = ttk.Entry(frame, width=8)
+    freq.grid(row=11, column=0)
+    delta_label = ttk.Label(frame, text="Delta")
+    delta_label.grid(row=10, column=1)
+    delta = ttk.Entry(frame, width=8)
+    delta.grid(row=11, column=1)
+    handle_make_tones_and_pickup_button = ttk.Button(frame, text='Make tones and pick up')
+    handle_make_tones_and_pickup_button.grid(row=11, column=2)
+
     # call back functions
     handel_run_follow_a_color_button["command"] = lambda: handle_run_follow_a_color(mqtt_sender)
     handel_pick_up_object_with_cycles_button["command"] = lambda: handle_pick_up_object_with_cycles(
@@ -139,6 +162,7 @@ def get_wolfe_frame(window, mqtt_sender):
         speed_4, mqtt_sender)
     handel_pick_up_object_beeper_button["command"] = lambda: handle_pick_up_object_beeper(
         speed_5, mqtt_sender)
+    handle_make_tones_and_pickup_button["command"] = lambda: handle_make_tones_and_pickup(freq, delta, mqtt_sender)
 
     return frame
 
@@ -191,6 +215,17 @@ def get_haiden_frame(window, mqtt_sender):
     handel_pick_up_object_beeper_button = ttk.Button(frame, text="Pick up beeper")
     handel_pick_up_object_beeper_button.grid(row=9, column=1)
 
+    freq_label = ttk.Label(frame, text="Frequency")
+    freq_label.grid(row=10, column=0)
+    freq = ttk.Entry(frame, width=8)
+    freq.grid(row=11, column=0)
+    delta_label = ttk.Label(frame, text="Delta")
+    delta_label.grid(row=10, column=1)
+    delta = ttk.Entry(frame, width=8)
+    delta.grid(row=11, column=1)
+    handle_make_tones_and_pickup_button = ttk.Button(frame, text='Make tones and pick up')
+    handle_make_tones_and_pickup_button.grid(row=11, column=2)
+
     # call back functions
     handel_run_follow_a_color_button["command"] = lambda: handle_run_follow_a_color(mqtt_sender)
     handel_pick_up_object_with_cycles_button["command"] = lambda: handle_pick_up_object_with_cycles(
@@ -201,6 +236,7 @@ def get_haiden_frame(window, mqtt_sender):
         speed_4, mqtt_sender)
     handel_pick_up_object_beeper_button["command"] = lambda: handle_pick_up_object_beeper(
         speed_5, mqtt_sender)
+    handle_make_tones_and_pickup_button["command"] = lambda: handle_make_tones_and_pickup(freq, delta, mqtt_sender)
 
     return frame
 
@@ -991,3 +1027,14 @@ def handle_pick_up_object_beeper(speed_5, mqtt_sender):
     """
     print("Picking up and object with beeper")
     mqtt_sender.send_message('pick_up_object_beeper', [speed_5.get()])
+
+def handle_make_tones_and_pickup(freq, delta, mqtt_sender):
+    """
+    Tells the robot to move its Arm to the position in the given Entry box.
+    The robot must have previously calibrated its Arm.
+      :type  freq ttk.Entry
+      :type  delta ttk.Entry
+      :type  mqtt_sender:        com.MqttClient
+    """
+    print("make tones and pickup")
+    mqtt_sender.send_message('make_tones_and_pickup', [freq.get(), delta.get()])

@@ -236,6 +236,22 @@ class Handler(object):
             saved_x = self.robot.sensor_system.camera.get_biggest_blob().center.x
             saved_area = self.robot.sensor_system.camera.get_biggest_blob().get_area()
 
-
-
+    def make_tones_and_pickup(self, freq, delta):
+        self.robot.arm_and_claw.calibrate_arm()
+        dur = 300
+        self.robot.drive_system.go(25, 25)
+        dist = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+        while True:
+            self.robot.sound_system.tone_maker.play_tone(int(freq), int(dur))
+            time.sleep(0.3)
+            if dist <= self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches():
+                freq = int(freq) - int(delta)
+            if dist >= self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches():
+                freq = int(freq) + int(delta)
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 2:
+                self.robot.drive_system.stop()
+                self.robot.drive_system.go_straight_for_inches_using_encoder(4, 25)
+                self.robot.arm_and_claw.move_arm_to_position(3000)
+                break
+            dist = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
 
