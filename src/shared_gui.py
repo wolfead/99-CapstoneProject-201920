@@ -288,7 +288,6 @@ def get_drive_system_frame(window, mqtt_sender):
     speed_entry_box_4 = ttk.Entry(frame, width=8)
     speed_entry_box_4.grid(row=10, column=1)
 
-    pick_up_frame = ttk.Frame()
 
     handle_go_forward_until_distance_is_less_than_button = ttk.Button(frame, text='Straight until '
                                                                                   'distance is less than')
