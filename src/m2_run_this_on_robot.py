@@ -28,7 +28,9 @@ def main():
     # run_test_display_camera_data()
     # run_test_turn_clockwise_object_spotted()
     # run_test_turn_counter_clockwise_object_spotted()
-    run_test_make_tones_and_pickup(440, 30)
+    # run_test_make_tones_and_pickup(440, 30)
+    robot = rosebot.RoseBot()
+    robot.arm_and_claw.calibrate_arm()
 
 def real_thing():
     robot = rosebot.RoseBot()
