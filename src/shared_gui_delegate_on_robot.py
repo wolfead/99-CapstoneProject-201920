@@ -235,7 +235,7 @@ class Handler(object):
                 self.robot.drive_system.stop()
             saved_x = self.robot.sensor_system.camera.get_biggest_blob().center.x
             saved_area = self.robot.sensor_system.camera.get_biggest_blob().get_area()
-             
+
 
 
 

@@ -941,7 +941,7 @@ def handle_exit(mqtt_sender):
 # Personal files
 
 
-def handel_run_follow_a_color(mqtt_sender):
+def handle_run_follow_a_color(mqtt_sender):
     """
     Tell the robot's program to stop its loop (and hence quit).
     Then exit this program.
@@ -951,7 +951,7 @@ def handel_run_follow_a_color(mqtt_sender):
     mqtt_sender.send_message('run_follow_a_color')
 
 
-def handel_pick_up_object_with_cycles(speed_2, mqtt_sender):
+def handle_pick_up_object_with_cycles(speed_2, mqtt_sender):
     """
     Tells the robot to move its Arm to the position in the given Entry box.
     The robot must have previously calibrated its Arm.
@@ -962,7 +962,7 @@ def handel_pick_up_object_with_cycles(speed_2, mqtt_sender):
     mqtt_sender.send_message('pick_up_object_with_cycles', [speed_2.get()])
 
 
-def handel_find_and_pick_up_clockwise(speed_3, mqtt_sender):
+def handle_find_and_pick_up_clockwise(speed_3, mqtt_sender):
     """
     Tells the robot to move its Arm to the position in the given Entry box.
     The robot must have previously calibrated its Arm.
@@ -973,7 +973,7 @@ def handel_find_and_pick_up_clockwise(speed_3, mqtt_sender):
     mqtt_sender.send_message('find_and_pick_up_clockwise', [speed_3.get()])
 
 
-def handel_find_and_pick_up_counterclockwise(speed_4, mqtt_sender):
+def handle_find_and_pick_up_counterclockwise(speed_4, mqtt_sender):
     """
     Tells the robot to move its Arm to the position in the given Entry box.
     The robot must have previously calibrated its Arm.
@@ -984,7 +984,7 @@ def handel_find_and_pick_up_counterclockwise(speed_4, mqtt_sender):
     mqtt_sender.send_message('find_and_pick_up_counterclockwise', [speed_4.get()])
 
 
-def handel_pick_up_object_beeper(speed_5, mqtt_sender):
+def handle_pick_up_object_beeper(speed_5, mqtt_sender):
     """
     Tells the robot to move its Arm to the position in the given Entry box.
     The robot must have previously calibrated its Arm.
