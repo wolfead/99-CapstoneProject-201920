@@ -18,7 +18,7 @@ def main():
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
     # run_test_arm()
-    run_test_calibrate()
+    # run_test_calibrate()
     # run_test_move_rose_to_position()
     # run_test_lower_arm()
     # real_thing()
@@ -32,7 +32,7 @@ def main():
     # robot = rosebot.RoseBot()
     # robot.arm_and_claw.calibrate_arm()
     # run_follow_a_color()
-    # run_feature_10()
+    run_feature_10()
 
 def real_thing():
     robot = rosebot.RoseBot()
@@ -97,7 +97,7 @@ def run_test_turn_counter_clockwise_object_spotted():
     robot.drive_system.spin_counterclockwise_until_sees_object(50, 25)
 
 
-def run_test_make_tones_and_pickup(freq, delta):
+def make_tones_and_pickup(freq, delta):
     robot = rosebot.RoseBot()
     robot.arm_and_claw.calibrate_arm()
     dur = 300

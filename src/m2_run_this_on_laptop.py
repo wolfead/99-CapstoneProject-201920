@@ -70,7 +70,7 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, tubu
     arm_frame.grid(row=1, column=0)
     control_frame.grid(row=1, column=1)
     drive_system_frame.grid(row=0, column=1)
-    tubuyo_frame.grid(row=1, column=2)
+    tubuyo_frame.grid(row=0, column=2)
 
 
 # -----------------------------------------------------------------------------
