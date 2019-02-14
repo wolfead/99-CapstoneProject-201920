@@ -37,8 +37,10 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame, arm_frame, pick_up_frame, control_frame, drive_system_frame = get_shared_frames(main_frame, mqtt_sender)
-
+    teleop_frame, arm_frame, control_frame, drive_system_frame = get_shared_frames(main_frame, mqtt_sender)
+    pick_up_m1_frame = ttk.Frame(root, padding=20, borderwidth=5,relief='groove')
+    m1frame_label = ttk.Label(pick_up_m1_frame, text="M1 Pick up Object")
+    m1frame_label.grid(row=0, column=2)
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
     # -------------------------------------------------------------------------
@@ -47,8 +49,8 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame, pick_up_frame, arm_frame, control_frame, drive_system_frame)
-
+    grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame)
+    pick_up_m1_frame.grid(row=0,column=2)
     # -------------------------------------------------------------------------
     # The event loop:
     # -------------------------------------------------------------------------
@@ -60,16 +62,14 @@ def get_shared_frames(main_frame, mqtt_sender):
     arm_frame = shared_gui.get_arm_frame(main_frame, mqtt_sender)
     control_frame = shared_gui.get_control_frame(main_frame, mqtt_sender)
     drive_system_frame = shared_gui.get_drive_system_frame(main_frame, mqtt_sender)
-    pick_up_frame = shared_gui.get_pick_up_frame(main_frame,mqtt_sender)
-    return teleop_frame, arm_frame, control_frame, drive_system_frame,pick_up_frame
+    return teleop_frame, arm_frame, control_frame, drive_system_frame
 
 
-def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, pick_up_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame,):
     teleop_frame.grid(row=0, column=0)
     arm_frame.grid(row=1, column=0)
     control_frame.grid(row=1, column=1)
     drive_system_frame.grid(row=0, column=1)
-    pick_up_frame.grid(row=0,column=2)
 
 
 # -----------------------------------------------------------------------------

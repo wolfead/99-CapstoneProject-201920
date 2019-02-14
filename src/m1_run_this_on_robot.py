@@ -53,13 +53,14 @@ def pick_up_object(speed):
         time.sleep(0.01 * (1 + avg))
     robot.drive_system.go_straight_for_inches_using_encoder(3, speed)
     robot.arm_and_claw.move_arm_to_position(4000)
+    robot.arm_and_claw.calibrate_arm()
     robot.drive_system.stop()
 
 def find_and_pick_up_counterclockwise(speed):
     robot = rosebot.RoseBot()
     robot.drive_system.go(-speed,speed)
     while True:
-        if robot.sensor_system.camera.get_biggest_blob().center.x > 160 and robot.sensor_system.camera.get_biggest_blob().center.x < 180:
+        if robot.sensor_system.camera.get_biggest_blob().center.x > 155 and robot.sensor_system.camera.get_biggest_blob().center.x < 165:
             robot.drive_system.stop()
             break
     pick_up_object(speed)
@@ -69,10 +70,19 @@ def find_and_pick_up_clockwise(speed):
     robot = rosebot.RoseBot()
     robot.drive_system.go(speed, -speed)
     while True:
-        if robot.sensor_system.camera.get_biggest_blob().center.x > 160 and robot.sensor_system.camera.get_biggest_blob().center.x < 180:
+        if robot.sensor_system.camera.get_biggest_blob().center.x > 155 and robot.sensor_system.camera.get_biggest_blob().center.x < 165:
             robot.drive_system.stop()
             break
     pick_up_object(speed)
+
+def handle_pick_up_object(speed_entry, mqtt_sender):
+    """
+    Tells the robot to move its Arm to the position in the given Entry box.
+    The robot must have previously calibrated its Arm.
+      :type  speed_entry  ttk.Entry
+      :type  mqtt_sender:        com.MqttClient
+    """
+    mqtt_sender.send_message('m1pick_up_object',[speed_entry.get()])
 
 
 # -----------------------------------------------------------------------------
