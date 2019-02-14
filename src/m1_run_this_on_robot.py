@@ -22,7 +22,7 @@ def main():
     #robot = rosebot.RoseBot()
     #robot.arm_and_claw.calibrate_arm()
     #real_thing()
-    find_and_pick_up(50)
+    find_and_pick_up_counterclockwise(50)
 def real_thing():
     robot = rosebot.RoseBot()
     delegate = shared_gui_delegate_on_robot.Handler(robot)
@@ -59,7 +59,7 @@ def find_and_pick_up_counterclockwise(speed):
     robot = rosebot.RoseBot()
     robot.drive_system.go(-speed,speed)
     while True:
-        if robot.sensor_system.camera.get_biggest_blob().center.x > 150 and robot.sensor_system.camera.get_biggest_blob().center.x < 170:
+        if robot.sensor_system.camera.get_biggest_blob().center.x > 160 and robot.sensor_system.camera.get_biggest_blob().center.x < 180:
             robot.drive_system.stop()
             break
     pick_up_object(speed)
@@ -69,7 +69,7 @@ def find_and_pick_up_clockwise(speed):
     robot = rosebot.RoseBot()
     robot.drive_system.go(speed, -speed)
     while True:
-        if robot.sensor_system.camera.get_biggest_blob().center.x > 150 and robot.sensor_system.camera.get_biggest_blob().center.x < 170:
+        if robot.sensor_system.camera.get_biggest_blob().center.x > 160 and robot.sensor_system.camera.get_biggest_blob().center.x < 180:
             robot.drive_system.stop()
             break
     pick_up_object(speed)

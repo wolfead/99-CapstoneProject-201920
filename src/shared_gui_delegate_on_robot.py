@@ -131,7 +131,7 @@ class Handler(object):
         robot = rosebot.RoseBot()
         robot.drive_system.go(-speed, speed)
         while True:
-            if robot.sensor_system.camera.get_biggest_blob().center.x > 150 and robot.sensor_system.camera.get_biggest_blob().center.x < 170:
+            if robot.sensor_system.camera.get_biggest_blob().center.x > 160 and robot.sensor_system.camera.get_biggest_blob().center.x < 180:
                 robot.drive_system.stop()
                 break
         pick_up_object(speed)
@@ -140,7 +140,8 @@ class Handler(object):
         robot = rosebot.RoseBot()
         robot.drive_system.go(speed, -speed)
         while True:
-            if robot.sensor_system.camera.get_biggest_blob().center.x > 150 and robot.sensor_system.camera.get_biggest_blob().center.x < 170:
+            if robot.sensor_system.camera.get_biggest_blob().center.x > 160 and robot.sensor_system.camera.get_biggest_blob().center.x < 180:
                 robot.drive_system.stop()
                 break
         pick_up_object(speed)
+
