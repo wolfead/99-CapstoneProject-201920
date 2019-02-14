@@ -18,10 +18,10 @@ def main():
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
     # run_test_arm()
-    # run_test_calibrate()
+    run_test_calibrate()
     # run_test_move_rose_to_position()
     # run_test_lower_arm()
-    real_thing()
+    # real_thing()
     # run_test_go_straight_for_seconds()
     # run_test_go_straight_for_inches_using_time()
     # run_test_go_straight_for_inches_using_encoder()
@@ -31,6 +31,8 @@ def main():
     # run_test_make_tones_and_pickup(440, 30)
     # robot = rosebot.RoseBot()
     # robot.arm_and_claw.calibrate_arm()
+    # run_follow_a_color()
+    # run_feature_10()
 
 def real_thing():
     robot = rosebot.RoseBot()
@@ -115,27 +117,74 @@ def run_test_make_tones_and_pickup(freq, delta):
             break
         dist = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
 
+
+def run_feature_10():
+    robot = rosebot.RoseBot()
+    robot.arm_and_claw.calibrate_arm()
+    robot.drive_system.spin_counterclockwise_until_sees_object(-50, 400)
+    run_test_make_tones_and_pickup(440, 10)
+
 def run_follow_a_color():
     robot = rosebot.RoseBot()
     speed = 50
-    saved_x = robot.sensor_system.camera.get_biggest_blob().center.x
-    saved_area = robot.sensor_system.camera.get_biggest_blob().get_area()
     while True:
-        if saved_x < robot.sensor_system.camera.get_biggest_blob().center.x:
-            robot.drive_system.go(-speed, speed)
-        if saved_x < robot.sensor_system.camera.get_biggest_blob().center.x:
-            robot.drive_system.go(speed, -speed)
-        if saved_x == robot.sensor_system.camera.get_biggest_blob().center.x:
-            robot.drive_system.stop()
 
-        if saved_area < robot.sensor_system.camera.get_biggest_blob().get_area():
+        if 1500 > robot.sensor_system.camera.get_biggest_blob().get_area():
+            print('forward')
             robot.drive_system.go(speed, speed)
-        if saved_area > robot.sensor_system.camera.get_biggest_blob().get_area():
+            while True:
+                if 1500 < robot.sensor_system.camera.get_biggest_blob().get_area():
+                    break
+        if 2500 < robot.sensor_system.camera.get_biggest_blob().get_area():
+            print('backward')
             robot.drive_system.go(-speed, -speed)
-        if saved_area == robot.sensor_system.camera.get_biggest_blob().get_area():
+            while True:
+                if 2500 > robot.sensor_system.camera.get_biggest_blob().get_area():
+                    break
+        if robot.sensor_system.camera.get_biggest_blob().center.x > 180:
+            print('turnright')
+            robot.drive_system.go(speed,0)
+            while True:
+                if robot.sensor_system.camera.get_biggest_blob().center.x < 180:
+                    break
+        if robot.sensor_system.camera.get_biggest_blob().center.x < 75:
+            print('turnleft')
+            robot.drive_system.go(0,speed)
+            while True:
+                if robot.sensor_system.camera.get_biggest_blob().center.x > 75:
+                    break
+        else:
             robot.drive_system.stop()
-        saved_x = robot.sensor_system.camera.get_biggest_blob().center.x
-        saved_area = robot.sensor_system.camera.get_biggest_blob().get_area()
+            print('stop')
+
+        # if robot.sensor_system.camera.get_biggest_blob().is_against_left_edge():
+        #     robot.drive_system.go(-speed, speed)
+        # if robot.sensor_system.camera.get_biggest_blob().is_against_right_edge():
+        #     robot.drive_system.go(speed, -speed)
+
+        # print(robot.sensor_system.camera.get_biggest_blob())
+        # time.sleep(0.1)
+        # time.sleep(0.5)
+        # print(saved_area)
+        # print(saved_x)
+        # if saved_x < robot.sensor_system.camera.get_biggest_blob().center.x:
+        #     robot.drive_system.go(-speed, speed)
+        # if saved_x < robot.sensor_system.camera.get_biggest_blob().center.x:
+        #     robot.drive_system.go(speed, -speed)
+        # if saved_x == robot.sensor_system.camera.get_biggest_blob().center.x:
+        #     robot.drive_system.stop()
+        # time.sleep(0.1)
+        # if saved_area < robot.sensor_system.camera.get_biggest_blob().get_area():
+        #     print('backward')
+        #     robot.drive_system.go(-speed, -speed)
+        # time.sleep(0.1)
+        # if saved_area > robot.sensor_system.camera.get_biggest_blob().get_area():
+        #     print('forward')
+        #     robot.drive_system.go(speed, speed)
+        # else:
+        #     robot.drive_system.stop()
+        # saved_x = robot.sensor_system.camera.get_biggest_blob().center.x
+        # saved_area = robot.sensor_system.camera.get_biggest_blob().get_area()
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
