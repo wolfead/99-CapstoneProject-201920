@@ -19,6 +19,7 @@ from tkinter import ttk
 
 import time
 
+
 def get_tubuyo_frame(window, mqtt_sender):
     """
        Constructs and returns a frame on the given window, where the frame
@@ -64,7 +65,7 @@ def get_tubuyo_frame(window, mqtt_sender):
     speed_5_label.grid(row=8, column=0)
     speed_5 = ttk.Entry(frame, width=8)
     speed_5.grid(row=9, column=0)
-    handel_pick_up_object_beeper_button = ttk.Button(frame, text="Pick up counterclockwise")
+    handel_pick_up_object_beeper_button = ttk.Button(frame, text="Pick up with beeper")
     handel_pick_up_object_beeper_button.grid(row=9, column=1)
 
     # call back functions
@@ -126,7 +127,7 @@ def get_wolfe_frame(window, mqtt_sender):
     speed_5_label.grid(row=2, column=2)
     speed_5 = ttk.Entry(frame, width=8)
     speed_5.grid(row=3, column=3)
-    handel_pick_up_object_beeper_button = ttk.Button(frame, text="Pick up counterclockwise")
+    handel_pick_up_object_beeper_button = ttk.Button(frame, text="Pick up with beeper")
     handel_pick_up_object_beeper_button.grid(row=3, column=3)
 
     # call back functions
@@ -188,7 +189,7 @@ def get_haiden_frame(window, mqtt_sender):
     speed_5_label.grid(row=8, column=0)
     speed_5 = ttk.Entry(frame, width=8)
     speed_5.grid(row=9, column=0)
-    handel_pick_up_object_beeper_button = ttk.Button(frame, text="Pick up counterclockwise")
+    handel_pick_up_object_beeper_button = ttk.Button(frame, text="Pick up with beeper")
     handel_pick_up_object_beeper_button.grid(row=9, column=1)
 
     # call back functions
