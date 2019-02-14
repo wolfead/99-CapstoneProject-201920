@@ -6,6 +6,7 @@
     and Haiden Smith, Alex Wolfe, Alex, Tabuyo
   Winter term, 2018-2019.
 """
+import time
 
 class Handler(object):
     def __init__(self, robot):
@@ -106,3 +107,40 @@ class Handler(object):
     def spin_counterclockwise_until_sees_object(self, speed, area):
         self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed), int(area))
 
+    def pick_up_object(self, speed):
+        self.robot.arm_and_claw.calibrate_arm()
+        self.robot.drive_system.go(int(speed), int(speed))
+        beeper = self.robot.sound_system.beeper
+        while True:
+            beeper.beep()
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 2:
+                self.robot.drive_system.stop()
+                break
+            data1 = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+            time.sleep(0.01)
+            data2 = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+            time.sleep(0.01)
+            data3 = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+            avg = (data1 + data2 + data3) / 3
+            time.sleep(0.01 * (1 + avg))
+        self.robot.drive_system.go_straight_for_inches_using_encoder(3, int(speed))
+        self.robot.arm_and_claw.move_arm_to_position(4000)
+        self.robot.drive_system.stop()
+
+    def find_and_pick_up_counterclockwise(speed):
+        robot = rosebot.RoseBot()
+        robot.drive_system.go(-speed, speed)
+        while True:
+            if robot.sensor_system.camera.get_biggest_blob().center.x > 150 and robot.sensor_system.camera.get_biggest_blob().center.x < 170:
+                robot.drive_system.stop()
+                break
+        pick_up_object(speed)
+
+    def find_and_pick_up_clockwise(speed):
+        robot = rosebot.RoseBot()
+        robot.drive_system.go(speed, -speed)
+        while True:
+            if robot.sensor_system.camera.get_biggest_blob().center.x > 150 and robot.sensor_system.camera.get_biggest_blob().center.x < 170:
+                robot.drive_system.stop()
+                break
+        pick_up_object(speed)

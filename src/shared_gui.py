@@ -374,7 +374,7 @@ def get_pick_up_frame(window,mqtt_sender):
     speed_entry.grid()
     pick_up_button = ttk.Button(frame, text='Pick Up object')
     pick_up_button.grid()
-    pick_up_button['command'] = lambda: handle_pick_up_object(int(speed_entry.get()),mqtt_sender)
+    pick_up_button['command'] = lambda: handle_pick_up_object(speed_entry,mqtt_sender)
 
     return frame
 
@@ -718,8 +718,15 @@ def handle_move_arm_to_position(arm_position_entry, mqtt_sender):
     print("move arm to position")
     mqtt_sender.send_message('move_arm_to', [arm_position_entry.get()])
 
-def handle_pick_up_object(speed,mqtt_sender):
-    mqtt_sender.send_message('pick_up_object',[speed])
+
+def handle_pick_up_object(speed_entry, mqtt_sender):
+    """
+    Tells the robot to move its Arm to the position in the given Entry box.
+    The robot must have previously calibrated its Arm.
+      :type  speed_entry  ttk.Entry
+      :type  mqtt_sender:        com.MqttClient
+    """
+    mqtt_sender.send_message('pick_up_object',[speed_entry.get()])
 
 ###############################################################################
 # Handlers for Buttons in the Control frame.

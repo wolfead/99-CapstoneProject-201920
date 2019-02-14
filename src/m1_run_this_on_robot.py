@@ -21,7 +21,8 @@ def main():
     #pick_up_object(30)
     #robot = rosebot.RoseBot()
     #robot.arm_and_claw.calibrate_arm()
-    real_thing()
+    #real_thing()
+    find_and_pick_up(50)
 def real_thing():
     robot = rosebot.RoseBot()
     delegate = shared_gui_delegate_on_robot.Handler(robot)
@@ -53,6 +54,26 @@ def pick_up_object(speed):
     robot.drive_system.go_straight_for_inches_using_encoder(3, speed)
     robot.arm_and_claw.move_arm_to_position(4000)
     robot.drive_system.stop()
+
+def find_and_pick_up_counterclockwise(speed):
+    robot = rosebot.RoseBot()
+    robot.drive_system.go(-speed,speed)
+    while True:
+        if robot.sensor_system.camera.get_biggest_blob().center.x > 150 and robot.sensor_system.camera.get_biggest_blob().center.x < 170:
+            robot.drive_system.stop()
+            break
+    pick_up_object(speed)
+
+
+def find_and_pick_up_clockwise(speed):
+    robot = rosebot.RoseBot()
+    robot.drive_system.go(speed, -speed)
+    while True:
+        if robot.sensor_system.camera.get_biggest_blob().center.x > 150 and robot.sensor_system.camera.get_biggest_blob().center.x < 170:
+            robot.drive_system.stop()
+            break
+    pick_up_object(speed)
+
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
