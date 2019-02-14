@@ -55,6 +55,7 @@ def color_leds():
 def turn_on_left():
     robot = rosebot.RoseBot()
     robot.led_system.left_led.turn_on()
+    robot.led_system.right_led.turn_on()
 
 
 def turn_on_right():
@@ -63,15 +64,15 @@ def turn_on_right():
 
 
 def cycle():
-    n = 3
-    for k in range(5):
-        turn_on_left()
-        turn_on_right()
-        turn_off_leds()
-        print(k+1, end='')
-        time.sleep(n)
-        n = n - 0.5
-    print("all done")
+    # n = 3
+    # for k in range(5):
+    turn_on_left()
+    turn_on_right()
+    turn_off_leds()
+    #     print(k+1, end='')
+    #     time.sleep(n)
+    #     n = n - 0.5
+    # print("all done")
 
 
 def pick_up_object_with_cycles(speed):

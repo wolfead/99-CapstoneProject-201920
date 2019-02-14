@@ -107,6 +107,22 @@ class Handler(object):
     def spin_counterclockwise_until_sees_object(self, speed, area):
         self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed), int(area))
 
+    def turn_off_leds(self):
+        self.robot.led_system.right_led.turn_off()
+        self.robot.led_system.left_led.turn_off()
+
+    def turn_on_left(self):
+        self.robot.led_system.left_led.turn_on()
+
+    def turn_on_right(self):
+        self.robot.led_system.right_led.turn_on()
+
+    def cycle(self):
+        self.robot.led_system.left_led.turn_on().wait()
+        self.robot.led_system.right_led.turn_on().wait()
+        self.robot.led_system.right_led.turn_off().wait()
+        self.robot.led_system.left_led.turn_off().wait()
+
     def pick_up_object_beeper(self, speed):
         self.robot.arm_and_claw.calibrate_arm()
         self.robot.drive_system.go(int(speed), int(speed))
@@ -181,7 +197,10 @@ class Handler(object):
         self.robot.arm_and_claw.calibrate_arm()
         self.robot.drive_system.go(int(speed), int(speed))
         while True:
-            cycle()
+            self.robot.led_system.left_led.turn_on().wait()
+            self.robot.led_system.right_led.turn_on().wait()
+            self.robot.led_system.right_led.turn_off().wait()
+            self.robot.led_system.left_led.turn_off().wait()
             if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 2:
                 self.robot.drive_system.stop()
                 break
@@ -197,23 +216,25 @@ class Handler(object):
         self.robot.drive_system.stop()
 
     def run_follow_a_color(self):
-        robot = rosebot.RoseBot()
         speed = 50
-        saved_x = robot.sensor_system.camera.get_biggest_blob().center.x
-        saved_area = robot.sensor_system.camera.get_biggest_blob().get_area()
+        saved_x = self.robot.sensor_system.camera.get_biggest_blob().center.x
+        saved_area = self.robot.sensor_system.camera.get_biggest_blob().get_area()
         while True:
-            if saved_x < robot.sensor_system.camera.get_biggest_blob().center.x:
-                robot.drive_system.go(-speed, speed)
-            if saved_x < robot.sensor_system.camera.get_biggest_blob().center.x:
-                robot.drive_system.go(speed, -speed)
-            if saved_x == robot.sensor_system.camera.get_biggest_blob().center.x:
-                robot.drive_system.stop()
+            if saved_x < self.robot.sensor_system.camera.get_biggest_blob().center.x:
+                self.robot.drive_system.go(-int(speed), int(speed))
+            if saved_x < self.robot.sensor_system.camera.get_biggest_blob().center.x:
+                self.robot.drive_system.go(int(speed), -int(speed))
+            if saved_x == self.robot.sensor_system.camera.get_biggest_blob().center.x:
+                self.robot.drive_system.stop()
 
-            if saved_area < robot.sensor_system.camera.get_biggest_blob().get_area():
-                robot.drive_system.go(speed, speed)
-            if saved_area > robot.sensor_system.camera.get_biggest_blob().get_area():
-                robot.drive_system.go(-speed, -speed)
-            if saved_area == robot.sensor_system.camera.get_biggest_blob().get_area():
-                robot.drive_system.stop()
-            saved_x = robot.sensor_system.camera.get_biggest_blob().center.x
-            saved_area = robot.sensor_system.camera.get_biggest_blob().get_area()
+            if saved_area < self.robot.sensor_system.camera.get_biggest_blob().get_area():
+                self.robot.drive_system.go(int(speed), int(speed))
+            if saved_area > self.robot.sensor_system.camera.get_biggest_blob().get_area():
+                self.robot.drive_system.go(-int(speed), -int(speed))
+            if saved_area == self.robot.sensor_system.camera.get_biggest_blob().get_area():
+                self.robot.drive_system.stop()
+            saved_x = self.robot.sensor_system.camera.get_biggest_blob().center.x
+            saved_area = self.robot.sensor_system.camera.get_biggest_blob().get_area()
+
+
+
