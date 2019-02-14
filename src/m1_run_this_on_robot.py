@@ -18,11 +18,10 @@ def main():
       1. Makes the EV3 robot to various things.
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
-    pick_up_object(30)
+    #pick_up_object(30)
     #robot = rosebot.RoseBot()
     #robot.arm_and_claw.calibrate_arm()
-
-
+    real_thing()
 def real_thing():
     robot = rosebot.RoseBot()
     delegate = shared_gui_delegate_on_robot.Handler(robot)

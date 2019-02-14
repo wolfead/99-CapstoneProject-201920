@@ -103,6 +103,8 @@ def get_drive_system_frame(window, mqtt_sender):
     speed_entry_box_4 = ttk.Entry(frame, width=8)
     speed_entry_box_4.grid(row=10, column=1)
 
+    pick_up_frame = ttk.Frame()
+
     handle_go_forward_until_distance_is_less_than_button = ttk.Button(frame, text='Straight until '
                                                                                   'distance is less than')
     handle_go_forward_until_distance_is_less_than_button.grid(row=10, column=2)
@@ -360,6 +362,19 @@ def get_arm_frame(window, mqtt_sender):
     calibrate_arm_button["command"] = lambda: handle_calibrate_arm(mqtt_sender)
     move_arm_button["command"] = lambda: handle_move_arm_to_position(
         position_entry, mqtt_sender)
+
+    return frame
+
+def get_pick_up_frame(window,mqtt_sender):
+    frame = ttk.Frame(window,padding = 10,borderwidth = 5)
+    frame.grid()
+    frame_label = ttk.Label(frame,text='Pick up object')
+    frame_label.grid()
+    speed_entry = ttk.Entry(frame)
+    speed_entry.grid()
+    pick_up_button = ttk.Button(frame, text='Pick Up object')
+    pick_up_button.grid()
+    pick_up_button['command'] = lambda: handle_pick_up_object(int(speed_entry.get()),mqtt_sender)
 
     return frame
 
@@ -702,6 +717,9 @@ def handle_move_arm_to_position(arm_position_entry, mqtt_sender):
     """
     print("move arm to position")
     mqtt_sender.send_message('move_arm_to', [arm_position_entry.get()])
+
+def handle_pick_up_object(speed,mqtt_sender):
+    mqtt_sender.send_message('pick_up_object',[speed])
 
 ###############################################################################
 # Handlers for Buttons in the Control frame.
