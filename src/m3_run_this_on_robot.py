@@ -30,7 +30,12 @@ def real_thing():
         if delegate.is_time_to_stop:
             break
 
-
+def cycle_through_left_led():
+    robot = rosebot.RoseBot()
+    robot.led_system.left_led.turn_on()
+    robot.led_system.right_led.turn_on()
+    robot.led_system.left_led.turn_off()
+    robot.led_system.right_led.turn_off()
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
