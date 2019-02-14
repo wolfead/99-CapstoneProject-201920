@@ -21,8 +21,8 @@ def main():
     #pick_up_object(30)
     #robot = rosebot.RoseBot()
     #robot.arm_and_claw.calibrate_arm()
-    #real_thing()
-    find_and_pick_up_counterclockwise(50)
+    real_thing()
+    #find_and_pick_up_counterclockwise(50)
 def real_thing():
     robot = rosebot.RoseBot()
     delegate = shared_gui_delegate_on_robot.Handler(robot)
