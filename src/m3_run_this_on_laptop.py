@@ -70,9 +70,7 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, haid
     arm_frame.grid(row=1, column=0)
     control_frame.grid(row=1, column=1)
     drive_system_frame.grid(row=0, column=1)
-    haiden_frame.grid(row=0, columm=2)
-
-
+    haiden_frame.grid(row=0, column=2)
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
