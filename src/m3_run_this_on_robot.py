@@ -30,6 +30,10 @@ def real_thing():
 
     while True:
         time.sleep(.01)
+        if robot.drive_system.time_to_stop:
+            print('Game Over You Lose')
+            robot.sound_system.speech_maker.speak("You Lose")
+            break
         if delegate.is_time_to_stop:
             break
 

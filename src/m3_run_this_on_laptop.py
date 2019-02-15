@@ -10,7 +10,9 @@
 import mqtt_remote_method_calls as com
 import tkinter
 from tkinter import ttk
+from tkinter import *
 import shared_gui
+import time
 
 
 def main():
@@ -55,7 +57,6 @@ def main():
     # -------------------------------------------------------------------------
     main_frame.mainloop()
 
-
 def get_shared_frames(main_frame, mqtt_sender):
     teleop_frame = shared_gui.get_teleoperation_frame(main_frame, mqtt_sender)
     arm_frame = shared_gui.get_arm_frame(main_frame, mqtt_sender)
@@ -72,7 +73,29 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, haid
     drive_system_frame.grid(row=0, column=1)
     haiden_frame.grid(row=0, column=2)
 
+
+def graphics(Height, Width, xspeed, yspeed):
+    tk = Tk()
+    canvas = Canvas(tk, width=Width, height=Height)
+    ttk.Label("Graphics")
+    canvas.pack()
+
+    ball = canvas.create_oval(0, 0, 100, 100, fill='red')
+
+    while True:
+        canvas.move(ball, xspeed, yspeed)
+        pos = canvas.coords(ball)  # [left,top,right,bottom]
+        if pos[2] >= Width:
+            print(pos[2])
+            xspeed = -xspeed
+        if pos[0] <= 0:
+            print(pos[0])
+            xspeed = abs(xspeed)
+
+        tk.update()
+        time.sleep(0.1)
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
 main()
+graphics(500, 500, 10, 0)

@@ -68,7 +68,7 @@ class DriveSystem(object):
         self.sensor_system = sensor_system
         self.left_motor = Motor('B')
         self.right_motor = Motor('C')
-
+        self.time_to_sleep = False
         self.wheel_circumference = 1.3 * math.pi
 
     # -------------------------------------------------------------------------
@@ -233,7 +233,8 @@ class DriveSystem(object):
             self.go(-speed, -speed)
         while True:
             time.sleep(0.1)
-            if self.sensor_system.ir_proximity_sensor.get_distance_in_inches() < (inches + delta) and self.sensor_system.ir_proximity_sensor.get_distance_in_inches() > (inches - delta):
+            if self.sensor_system.ir_proximity_sensor.get_distance_in_inches() < (inches + delta) and \
+                    self.sensor_system.ir_proximity_sensor.get_distance_in_inches() > (inches - delta):
                 self.stop()
                 break
     # -------------------------------------------------------------------------
@@ -296,6 +297,19 @@ class DriveSystem(object):
             w = self. sensor_system.camera.get_biggest_blob().width
             a = h * w
             if a >= area:
+                self.stop()
+                break
+
+    # ------------------------------------------------------------------------
+    # Haiden's Final Code
+    # ------------------------------------------------------------------------
+
+    def stop_on_brown(self):
+
+        color_number = self.sensor_system.color_sensor.get_reflected_light_intensity()
+        while True:
+            if self.sensor_system.color_sensor.get_color() != color_number:
+
                 self.stop()
                 break
 

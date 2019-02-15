@@ -7,10 +7,10 @@ import time
 import random
 
 
-#assign the module to a var
+# assign the module to a var
 tk = Tk()
 
-#set global vars
+# set global vars
 Height = 500
 Width = 500
 minWidth = 0
@@ -27,23 +27,18 @@ yspeed = 10
 while True:
     canvas.move(ball, xspeed, yspeed)
     pos = canvas.coords(ball) #[left,top,right,bottom]
-    n=4
     if pos[2] >= Width:
         print(pos[2])
-        xspeed = -xspeed - n
-        n = n +6
+        xspeed = -xspeed
     if pos[0] <= 0:
         print(pos[0])
         xspeed = abs(xspeed)
-        n = -2
     if pos[3] >= Height:
         print(pos[3])
-        yspeed = -yspeed - n + 2
-        n = 18
+        yspeed = -yspeed
     if pos[1] <= 0:
         print(pos[1])
         yspeed = abs(yspeed)
-
 
     tk.update()
     time.sleep(0.1)
