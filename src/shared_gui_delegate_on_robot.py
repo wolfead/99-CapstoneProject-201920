@@ -19,7 +19,13 @@ class Handler(object):
     def forward(self, left_wheel_speed, right_wheel_speed):
         print('got forward', left_wheel_speed, right_wheel_speed)
         self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
- 
+
+    def m1forward(self, left_wheel_speed, right_wheel_speed):
+        if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches < 4:
+            self.speech('I am too close to the wall')
+        else:
+            self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
+        
     def stop(self):
         self.robot.drive_system.right_motor.turn_off()
         self.robot.drive_system.left_motor.turn_off()

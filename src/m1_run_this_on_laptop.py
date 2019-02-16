@@ -24,16 +24,32 @@ def main():
     # -------------------------------------------------------------------------
     mqtt_sender = com.MqttClient()
     mqtt_sender.connect_to_ev3()
+
     # -------------------------------------------------------------------------
     # The root TK object for the GUI:
     # -------------------------------------------------------------------------
     root = tkinter.Tk()
     root.title("CSSE 120 Capstone Project, Winter 2018-19, Robot 11")
+    root2 = tkinter.Tk()
+    root2.title("Sprint III for Alexander Wolfe")
+    root2.geometry("500x500")
+    canvas = tkinter.Canvas(root2,width='500',height='500',bg='cyan')
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
     # -------------------------------------------------------------------------
     main_frame = ttk.Frame(root, padding=10, borderwidth=5, relief='groove')
     main_frame.grid()
+    canvas.grid()
+    canvas.create_rectangle(200,200,300,300,fill='black')
+    canvas.create_text(250,150,text='Forward',font='Arial')
+    canvas.create_text(250, 350, text='Reverse', font='Arial')
+    canvas.create_text(150, 250, text='Left', font='Arial')
+    canvas.create_text(350, 250, text='Right', font='Arial')
+
+    canvas.bind('<Button-1>', lambda event: left_mouse_click(event,mqtt_sender))
+
+    canvas.bind('<B1-ButtonRelease>',
+                lambda event: left_mouse_release(mqtt_sender))
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
@@ -56,6 +72,25 @@ def main():
     # -------------------------------------------------------------------------
     main_frame.mainloop()
 
+def left_mouse_click(event, mqtt_sender):
+    x = event.x
+    y = event.y
+    if x > 200 and x < 300 and y > 50 and y < 200:
+        print('m1forward')
+        mqtt_sender.send_message('forward', [100,100])
+    elif x > 200 and x < 300 and y > 300 and y < 450:
+        print('backward')
+        mqtt_sender.send_message('backward', [100,100])
+    elif x > 50 and x < 200 and y > 200 and y < 300:
+        print('left')
+        mqtt_sender.send_message('left', [75,75])
+    elif x > 300 and x < 450 and y > 200 and y < 300:
+        print('right')
+        mqtt_sender.send_message('right', [75,75])
+
+def left_mouse_release(mqtt_sender):
+    print('stop')
+    mqtt_sender.send_message('stop',[])
 
 def get_shared_frames(main_frame, mqtt_sender):
     teleop_frame = shared_gui.get_teleoperation_frame(main_frame, mqtt_sender)
