@@ -25,7 +25,22 @@ class Handler(object):
             self.speech('I am too close to the wall')
         else:
             self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
-        
+
+    def m1backward(self, left_motor_speed, right_motor_speed):
+        self.speech('I cannot see where I am going')
+        self.robot.drive_system.right_motor.turn_on(-(int(left_motor_speed)))
+        self.robot.drive_system.left_motor.turn_on(-(int(right_motor_speed)))
+
+    def m1left(self,left_speed, right_speed):
+        self.speech('Turning left')
+        self.robot.drive_system.left_motor.turn_on(-(int(left_speed)))
+        self.robot.drive_system.right_motor.turn_on(int(right_speed))
+
+    def m1right(self, left_speed, right_speed):
+        self.speech('Turning right')
+        self.robot.drive_system.left_motor.turn_on(int(left_speed))
+        self.robot.drive_system.right_motor.turn_on(-(int(right_speed)))
+
     def stop(self):
         self.robot.drive_system.right_motor.turn_off()
         self.robot.drive_system.left_motor.turn_off()

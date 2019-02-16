@@ -76,17 +76,17 @@ def left_mouse_click(event, mqtt_sender):
     x = event.x
     y = event.y
     if x > 200 and x < 300 and y > 50 and y < 200:
-        print('m1forward')
-        mqtt_sender.send_message('forward', [100,100])
+        print('forward')
+        mqtt_sender.send_message('m1forward', [100,100])
     elif x > 200 and x < 300 and y > 300 and y < 450:
         print('backward')
-        mqtt_sender.send_message('backward', [100,100])
+        mqtt_sender.send_message('m1backward', [100,100])
     elif x > 50 and x < 200 and y > 200 and y < 300:
         print('left')
-        mqtt_sender.send_message('left', [75,75])
+        mqtt_sender.send_message('m1left', [75,75])
     elif x > 300 and x < 450 and y > 200 and y < 300:
         print('right')
-        mqtt_sender.send_message('right', [75,75])
+        mqtt_sender.send_message('m1right', [75,75])
 
 def left_mouse_release(mqtt_sender):
     print('stop')
