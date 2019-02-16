@@ -45,6 +45,17 @@ class Handler(object):
         self.robot.drive_system.right_motor.turn_on(-(int(right_speed)))
         self.speech('Turning right')
 
+    def remember_colors(self):
+        list = ''
+        initialcolor = None
+        self.robot.drive_system.go(50,50)
+        while self.robot.sensor_system.color_sensor.get_reflected_light_intensity() > 2:
+            color_number_encountered = self.robot.sensor_system.color_sensor.get_color
+            if color_number_encountered != initialcolor:
+                initialcolor = color_number_encountered
+                list = list + str(self.robot.sensor_system.color_sensor.COLORS[color_number_encountered]) + '.'
+        self.robot.drive_system.stop()
+        self.speech(list)
     def stop(self):
         self.robot.drive_system.right_motor.turn_off()
         self.robot.drive_system.left_motor.turn_off()
