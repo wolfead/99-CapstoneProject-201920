@@ -51,7 +51,7 @@ def main():
     canvas.bind('<B1-ButtonRelease>',
                 lambda event: left_mouse_release(mqtt_sender))
 
-    canvas.bind('<Return>', lambda: remember_colors(mqtt_sender))
+    root2.bind('<Return>', lambda event: remember_colors(mqtt_sender))
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
@@ -75,6 +75,7 @@ def main():
     main_frame.mainloop()
 
 def remember_colors(mqtt_sender):
+    print('remember colors')
     mqtt_sender.send_message('remember_colors',[])
 
 def left_mouse_click(event, mqtt_sender):

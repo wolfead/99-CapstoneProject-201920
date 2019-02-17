@@ -20,10 +20,6 @@
 import time
 import math
 
-list = ''
-for k in range(5):
-    list = list + str(54)
-print(list)
 
 ###############################################################################
 #    RoseBot class.

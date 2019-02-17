@@ -23,6 +23,11 @@ def main():
     #robot.arm_and_claw.calibrate_arm()
     real_thing()
     #find_and_pick_up_counterclockwise(50)
+    # robot = rosebot.RoseBot()
+    # while True:
+    #     print(robot.sensor_system.color_sensor.get_color_as_name())
+    #     time.sleep(1)
+
 def real_thing():
     robot = rosebot.RoseBot()
     delegate = shared_gui_delegate_on_robot.Handler(robot)

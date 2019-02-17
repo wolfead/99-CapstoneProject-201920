@@ -48,14 +48,19 @@ class Handler(object):
 
     def remember_colors(self):
         list = ''
+        self.robot.drive_system.go(30,30)
         initialcolor = None
-        self.robot.drive_system.go(50,50)
-        while self.robot.sensor_system.color_sensor.get_reflected_light_intensity() > 2:
-            color_number_encountered = self.robot.sensor_system.color_sensor.get_color
-            if color_number_encountered != initialcolor:
-                initialcolor = color_number_encountered
-                list = list + str(self.robot.sensor_system.color_sensor.COLORS[color_number_encountered]) + '.'
+        while True:
+            color_number_encountered = self.robot.sensor_system.color_sensor.get_color()
+            x = self.robot.sensor_system.color_sensor.COLORS[color_number_encountered]
+            if x!= initialcolor:
+                list = list + ' ' + x
+                initialcolor = x
+            if self.robot.sensor_system.touch_sensor.is_pressed():
+                break
+            time.sleep(0.7)
         self.robot.drive_system.stop()
+        print(list)
         self.speech(list)
 
     def stop(self):
