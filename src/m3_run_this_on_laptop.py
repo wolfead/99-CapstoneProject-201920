@@ -11,7 +11,6 @@ import mqtt_remote_method_calls as com
 import tkinter
 from tkinter import ttk
 import shared_gui
-import time
 
 
 def main():
@@ -69,5 +68,6 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, haid
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
-main()
 
+
+main()
