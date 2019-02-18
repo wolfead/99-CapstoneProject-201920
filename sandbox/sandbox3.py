@@ -42,4 +42,5 @@ while True:
 
     tk.update()
     time.sleep(0.1)
+
     # need these two for moving only one direction

@@ -19,6 +19,7 @@ from tkinter import ttk
 
 import time
 
+
 def get_tubuyo_frame(window, mqtt_sender):
     """
        Constructs and returns a frame on the given window, where the frame
@@ -239,6 +240,34 @@ def get_haiden_frame(window, mqtt_sender):
     handle_make_tones_and_pickup_button["command"] = lambda: handle_make_tones_and_pickup(freq, delta, mqtt_sender)
 
     return frame
+
+
+def get_mario_drive_system(window, mqtt_sender):
+    """
+    Constructs and returns a frame on the given window, where the frame
+    has Entry and Button objects that control the EV3 robot's motion
+    has Entry and Button objects that control the EV3 robot's motion
+    by passing messages using the given MQTT Sender.
+      :type  window:       ttk.Frame | ttk.Toplevel
+      :type  mqtt_sender:  com.MqttClient
+    """
+    # Construct the frame to return:
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Mario Drive System")
+    frame_label.grid(row=0, column=1)
+    speed_label = ttk.Label(frame, text="Wheel speed (0 to 100)")
+    speed_label.grid(row=1, column=0)
+    speed_mario = ttk.Entry(frame, width=8)
+    speed_mario.grid(row=2, column=0)
+
+    forward_button = ttk.Button(frame, text="Forward")
+    forward_button.grid(row=2, column=2)
+
+    # call backs
+    forward_button["command"] = lambda: handle_mario_project_final(speed_mario, mqtt_sender)
 
 
 def get_drive_system_frame(window, mqtt_sender):
@@ -1028,6 +1057,7 @@ def handle_pick_up_object_beeper(speed_5, mqtt_sender):
     print("Picking up and object with beeper")
     mqtt_sender.send_message('pick_up_object_beeper', [speed_5.get()])
 
+
 def handle_make_tones_and_pickup(freq, delta, mqtt_sender):
     """
     Tells the robot to move its Arm to the position in the given Entry box.
@@ -1038,3 +1068,16 @@ def handle_make_tones_and_pickup(freq, delta, mqtt_sender):
     """
     print("make tones and pickup")
     mqtt_sender.send_message('make_tones_and_pickup', [freq.get(), delta.get()])
+
+# ############################# HAIDEN FINAL ##########################################
+
+
+def handle_mario_project_final(speed_mario, mqtt_sender):
+    """
+    Tells the robot to move its Arm to the position in the given Entry box.
+    The robot must have previously calibrated its Arm.
+      :type  speed_mario ttk.Entry
+      :type  mqtt_sender:        com.MqttClient
+    """
+    mqtt_sender.send_message('mario_forward', [speed_mario.get()])
+

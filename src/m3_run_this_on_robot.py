@@ -22,6 +22,7 @@ def main():
     # cycle()
     # pick_up_object_with_cycles(50)
 
+
 def real_thing():
     robot = rosebot.RoseBot()
     delegate = shared_gui_delegate_on_robot.Handler(robot)
@@ -30,10 +31,10 @@ def real_thing():
 
     while True:
         time.sleep(.01)
-        if robot.drive_system.time_to_stop:
-            print('Game Over You Lose')
-            robot.sound_system.speech_maker.speak("You Lose")
-            break
+        # if robot.drive_system.time_to_stop:
+        #     print('Game Over You Lose')
+        #     robot.sound_system.speech_maker.speak("You Lose")
+        #     break
         if delegate.is_time_to_stop:
             break
 

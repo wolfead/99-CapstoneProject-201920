@@ -7,6 +7,7 @@
   Winter term, 2018-2019.
 """
 import time
+import tkinter
 
 class Handler(object):
     def __init__(self, robot):
@@ -297,4 +298,52 @@ class Handler(object):
                 self.robot.arm_and_claw.move_arm_to_position(3000)
                 break
             dist = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+
+# ###################################### HAIDEN'S FINAL CODE ##########################################################
+    def mario_forward(self, speed):
+        self.robot.drive_system.go(int(speed), int(speed))
+        n = 4000
+        while True:
+            if self.robot.sensor_system.color_sensor.get_color() >= 7:
+                for k in range(3):
+                    self.robot.sound_system.tone_maker.play_tone(n, 1000)
+                    n = n - 1000
+                root1 = tkinter.Tk()
+                root1.title("Haiden's Final Mario graphic")
+                root1.geometry("500x500")
+
+                canvas = tkinter.Canvas(root1, width='800', height='800', bg='tan')
+                canvas.grid()
+                canvas.create_text(200, 200, text="Game Over")
+
+            if self.robot.sensor_system.color_sensor.get_color() <= 3:
+                self.robot.arm_and_claw.calibrate_arm()
+                self.robot.drive_system.go(int(speed), int(speed))
+                beeper = self.robot.sound_system.beeper
+                while True:
+                    beeper.beep()
+                    if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 2:
+                        self.robot.drive_system.stop()
+                        break
+                    data1 = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+                    time.sleep(0.01)
+                    data2 = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+                    time.sleep(0.01)
+                    data3 = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+                    avg = (data1 + data2 + data3) / 3
+                    time.sleep(0.01 * (1 + avg))
+                self.robot.drive_system.go_straight_for_inches_using_encoder(3, int(speed))
+                self.robot.arm_and_claw.move_arm_to_position(4000)
+                self.robot.drive_system.stop()
+
+            if self.robot.sensor_system.touch_sensor.is_pressed:
+                self.robot.sound_system.speech_maker.speak('Ya Who')
+                root1 = tkinter.Tk()
+                root1.title("Haiden's Final Mario graphic")
+                root1.geometry("500x500")
+
+                canvas = tkinter.Canvas(root1, width='800', height='800', bg='tan')
+                canvas.grid()
+                canvas.create_text(200, 200, text="Game Over")
+
 
