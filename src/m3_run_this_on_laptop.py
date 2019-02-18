@@ -31,11 +31,18 @@ def main():
     # -------------------------------------------------------------------------
     root = tkinter.Tk()
     root.title("CSSE 120 Capstone Project, Winter 2018-19, Robot 11")
+    root1 = tkinter.Tk()
+    root1.title("Haiden's final Mario graphic")
+    root1.geometry("500x500")
+    canvas = tkinter.Canvas(root1, width='800', height='800', bg='tan')
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
     # -------------------------------------------------------------------------
     main_frame = ttk.Frame(root, padding=10, borderwidth=5, relief='groove')
     main_frame.grid()
+    canvas.grid()
+    mario = canvas.create_rectangle(225, 225, 300, 300, fill='red')
+
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
@@ -47,15 +54,21 @@ def main():
     # -------------------------------------------------------------------------
     # DONE: Implement and call get_my_frames(...)
 
-    # -------------------------------------------------------------------------
-    # Grid the frames.
-    # -------------------------------------------------------------------------
     grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, haiden_frame)
+    # xspeed = 200
+    # yspeed = 0
+    #
+    # while True:
+    #     canvas.move(mario, xspeed, yspeed)
+    #     pos = canvas.coords(mario)  # [left,top,right,bottom]
+    #     if pos[2] >= 800:
+    #         xspeed = -xspeed
+    #     if pos[0] <= 0:
+    #         break
 
-    # -------------------------------------------------------------------------
-    # The event loop:
-    # -------------------------------------------------------------------------
     main_frame.mainloop()
+
+
 
 def get_shared_frames(main_frame, mqtt_sender):
     teleop_frame = shared_gui.get_teleoperation_frame(main_frame, mqtt_sender)
