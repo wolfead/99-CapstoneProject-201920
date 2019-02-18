@@ -269,6 +269,7 @@ def get_mario_drive_system(window, mqtt_sender):
     # call backs
     forward_button["command"] = lambda: handle_mario_project_final(speed_mario, mqtt_sender)
 
+    return frame
 
 def get_drive_system_frame(window, mqtt_sender):
     """
