@@ -21,7 +21,7 @@ def main():
     # run_test_calibrate()
     # run_test_move_rose_to_position()
     # run_test_lower_arm()
-    # real_thing()
+    real_thing()
     # run_test_go_straight_for_seconds()
     # run_test_go_straight_for_inches_using_time()
     # run_test_go_straight_for_inches_using_encoder()
@@ -32,7 +32,7 @@ def main():
     # robot = rosebot.RoseBot()
     # robot.arm_and_claw.calibrate_arm()
     # run_follow_a_color()
-    run_feature_10()
+    # run_feature_10()
 
 def real_thing():
     robot = rosebot.RoseBot()
