@@ -27,17 +27,20 @@ def main():
 
     root = tkinter.Tk()
     root.title("CSSE 120 Capstone Project, Winter 2018-19, Robot 11")
-    #
-    # root1 = tkinter.Tk()
-    # root1.title("Haiden's final Mario graphic")
-    # root1.geometry("500x500")
+
+    # ROOT ONE LOSE
+    root1 = tkinter.Tk()
+
+    # ROOT TWO WIN
+    root2 = tkinter.Toplevel()
 
     main_frame = ttk.Frame(root, padding=10, borderwidth=5, relief='groove')
     main_frame.grid()
 
-    # canvas = tkinter.Canvas(root1, width='800', height='800', bg='tan')
-    # canvas.grid()
-    # mario = canvas.create_rectangle(225, 225, 300, 300, fill='red')
+    laptop_handler_lose = Laptop_handler(root1)
+    laptop_handler_win = Laptop_handler(root2)
+    laptop_handler_lose.window_two(root1)
+    laptop_handler_win.window_one(root2)
 
     teleop_frame, arm_frame, control_frame, drive_system_frame, haiden_frame, mario_frame = get_shared_frames(
         main_frame, mqtt_sender)
@@ -68,6 +71,30 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, haid
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
+
+
+class Laptop_handler(object):
+    def __init__(self, root):
+        self.root = root
+        pass
+
+    def window_one(self, root):
+        root.title("Haiden's Final Mario graphic")
+        root.geometry("500x500")
+
+        canvas = tkinter.Canvas(root, width='800', height='800', bg='red')
+        canvas.grid()
+        canvas.create_text(250, 250, text="GAME OVER")
+        canvas.create_text(250, 270, text="YOU LOSE")
+
+    def window_two(self, root):
+        root.title("Haiden's Final Mario graphic")
+        root.geometry("500x500")
+
+        canvas = tkinter.Canvas(root, width='800', height='800', bg='teal')
+        canvas.grid()
+        canvas.create_text(250, 250, text="GAME OVER")
+        canvas.create_text(250, 270, text="YOU WIN")
 
 
 main()

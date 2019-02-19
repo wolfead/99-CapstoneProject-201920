@@ -7,12 +7,15 @@
   Winter term, 2018-2019.
 """
 import time
-import rosebot
+# import mqtt_remote_method_calls as com
+
 
 class Handler(object):
     def __init__(self, robot):
         self.robot = robot
         self.is_time_to_stop = False
+        # self.mqtt_robot_sender = com.MqttClient()
+
         """
         :type robot: rosebot.RoseBot
         """
@@ -310,17 +313,11 @@ class Handler(object):
                     self.robot.sound_system.tone_maker.play_tone(n, 2000)
                     n = n - 200
                 self.robot.sound_system.speech_maker.speak("Oh no you lost")
-                # root1 = tkinter.Tk()
-                # root1.title("Haiden's Final Mario graphic")
-                # root1.geometry("500x500")
-                #
-                # canvas = tkinter.Canvas(root1, width='800', height='800', bg='tan')
-                # canvas.grid()
-                # canvas.create_text(200, 200, text="Game Over")
+                # self.mqtt_robot_sender.connect_to_pc()
+                # self.mqtt_robot_sender.send_message('window_one')
                 break
 
             if self.robot.sensor_system.color_sensor.get_color() == 3:
-                # self.robot.arm_and_claw.calibrate_arm()
                 self.robot.drive_system.go(int(speed), int(speed))
                 beeper = self.robot.sound_system.beeper
                 while True:
@@ -336,19 +333,13 @@ class Handler(object):
                     avg = (data1 + data2 + data3) / 3
                     time.sleep(0.01 * (1 + avg))
                 self.robot.drive_system.go_straight_for_inches_using_encoder(3, int(speed))
-                # self.robot.arm_and_claw.move_arm_to_position(4000)
                 self.robot.arm_and_claw.raise_arm()
                 self.robot.drive_system.stop()
 
                 if self.robot.sensor_system.touch_sensor.is_pressed:
                     self.robot.sound_system.speech_maker.speak('Ya Who Its uh me mario')
-                    # root1 = tkinter.Tk()
-                    # root1.title("Haiden's Final Mario graphic")
-                    # root1.geometry("500x500")
-                    #
-                    # canvas = tkinter.Canvas(root1, width='800', height='800', bg='tan')
-                    # canvas.grid()
-                    # canvas.create_text(200, 200, text="Game Over")
+                    # self.mqtt_robot_sender.connect_to_pc()
+                    # self.mqtt_robot_sender.send_message('window_two')
                     break
 
     def cup_remover(self, speed):
