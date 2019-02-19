@@ -7,7 +7,6 @@
   Winter term, 2018-2019.
 """
 import time
-import tkinter
 import rosebot
 
 class Handler(object):
@@ -309,13 +308,13 @@ class Handler(object):
                 for k in range(3):
                     self.robot.sound_system.tone_maker.play_tone(n, 1000)
                     n = n - 1000
-                root1 = tkinter.Tk()
-                root1.title("Haiden's Final Mario graphic")
-                root1.geometry("500x500")
-
-                canvas = tkinter.Canvas(root1, width='800', height='800', bg='tan')
-                canvas.grid()
-                canvas.create_text(200, 200, text="Game Over")
+                # root1 = tkinter.Tk()
+                # root1.title("Haiden's Final Mario graphic")
+                # root1.geometry("500x500")
+                #
+                # canvas = tkinter.Canvas(root1, width='800', height='800', bg='tan')
+                # canvas.grid()
+                # canvas.create_text(200, 200, text="Game Over")
                 break
 
             if self.robot.sensor_system.color_sensor.get_color() == 3:
@@ -341,13 +340,13 @@ class Handler(object):
 
                 if self.robot.sensor_system.touch_sensor.is_pressed:
                     self.robot.sound_system.speech_maker.speak('Ya Who')
-                    root1 = tkinter.Tk()
-                    root1.title("Haiden's Final Mario graphic")
-                    root1.geometry("500x500")
-
-                    canvas = tkinter.Canvas(root1, width='800', height='800', bg='tan')
-                    canvas.grid()
-                    canvas.create_text(200, 200, text="Game Over")
+                    # root1 = tkinter.Tk()
+                    # root1.title("Haiden's Final Mario graphic")
+                    # root1.geometry("500x500")
+                    #
+                    # canvas = tkinter.Canvas(root1, width='800', height='800', bg='tan')
+                    # canvas.grid()
+                    # canvas.create_text(200, 200, text="Game Over")
                     break
 
     def cup_remover(self, speed):

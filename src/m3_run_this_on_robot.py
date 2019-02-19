@@ -10,6 +10,7 @@ import mqtt_remote_method_calls as com
 import time
 import shared_gui_delegate_on_robot
 
+
 def main():
     """
     This code, which must run on the EV3 ROBOT:
@@ -30,11 +31,7 @@ def real_thing():
     mqtt_receiver.connect_to_pc()
 
     while True:
-        time.sleep(.01)
-        # if robot.drive_system.time_to_stop:
-        #     print('Game Over You Lose')
-        #     robot.sound_system.speech_maker.speak("You Lose")
-        #     break
+        time.sleep(0.01)
         if delegate.is_time_to_stop:
             break
 
