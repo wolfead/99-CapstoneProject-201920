@@ -113,12 +113,16 @@ def get_cup_remover(window, mqtt_sender):
     speed_label.grid(row=1, column=0)
     speed = ttk.Entry(frame, width=8)
     speed.grid(row=2, column=0)
+    table_label = ttk.Label(frame, text="Longest Table Dimension")
+    table_label.grid(row=1, column=1)
+    table = ttk.Entry(frame, width=8)
+    table.grid(row=2, column=1)
 
     start_button = ttk.Button(frame, text="start")
     start_button.grid(row=2, column=2)
 
     # call backs
-    start_button["command"] = lambda: handle_cup_remover(speed, mqtt_sender)
+    start_button["command"] = lambda: handle_cup_remover(speed, table, mqtt_sender)
 
     return frame
 
@@ -1120,5 +1124,5 @@ def handle_cup_remover(speed, mqtt_sender):
           :type  speed ttk.Entry
           :type  mqtt_sender:        com.MqttClient
         """
-    mqtt_sender.send_message('cup_remover', [speed.get()])
+    mqtt_sender.send_message('cup_remover', [speed.get(), table.get()])
 

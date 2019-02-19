@@ -342,13 +342,13 @@ class Handler(object):
                     # self.mqtt_robot_sender.send_message('window_two')
                     break
 
-    def cup_remover(self, speed):
+    def cup_remover(self, speed, table):
         self.robot.drive_system.go(int(speed), -int(speed))
         color = self.robot.sensor_system.color_sensor.get_color()
         while True:
-            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() > 8:
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() > int(table):
                 self.robot.drive_system.go(int(speed), -int(speed))
-            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() < 8:
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() < int(table):
                 self.robot.drive_system.go(int(speed) / 2, int(speed) / 2)
                 print('retrieving')
                 if self.robot.sensor_system.camera.get_biggest_blob().get_area() > 400:
@@ -372,7 +372,7 @@ class Handler(object):
                 if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() < 3:
                     print('Object Found!')
                     self.robot.arm_and_claw.lower_arm()
-                    self.robot.drive_system.go_straight_for_inches_using_encoder(3, int(speed) / 2)
+                    self.robot.drive_system.go_straight_for_inches_using_encoder(5, int(speed) / 2)
                     self.robot.arm_and_claw.move_arm_to_position(3500)
                     self.robot.drive_system.go(int(speed) / 2, int(speed) / 2)
                     while True:
