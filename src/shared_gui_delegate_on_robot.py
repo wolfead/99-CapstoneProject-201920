@@ -355,6 +355,8 @@ class Handler(object):
         self.robot.drive_system.go(int(speed), -int(speed))
         color = self.robot.sensor_system.color_sensor.get_color()
         while True:
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches > 10:
+                self.robot.drive_system.go(int(speed), -int(speed))
             if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() < 10:
                 self.robot.drive_system.go(int(speed) / 2, int(speed) / 2)
                 print('retrieving')
@@ -384,7 +386,7 @@ class Handler(object):
                             self.robot.drive_system.stop()
                             self.robot.arm_and_claw.lower_arm()
                             self.robot.sound_system.speech_maker.speak('All done!')
-                            self.robot.drive_system.go(-int(speed), -int(speed))
+                            self.robot.drive_system.go_straight_for_inches_using_encoder(6, int(speed) / 2)
                             break
 
 
