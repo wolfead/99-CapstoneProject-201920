@@ -114,12 +114,14 @@ def get_cup_remover(window, mqtt_sender):
     speed = ttk.Entry(frame, width=8)
     speed.grid(row=2, column=0)
     table_label = ttk.Label(frame, text="Longest Table Dimension")
-    table_label.grid(row=1, column=1)
+    table_label.grid(row=3, column=0)
     table = ttk.Entry(frame, width=8)
-    table.grid(row=2, column=1)
+    table.grid(row=4, column=0)
 
     start_button = ttk.Button(frame, text="start")
     start_button.grid(row=2, column=2)
+
+
 
     # call backs
     start_button["command"] = lambda: handle_cup_remover(speed, table, mqtt_sender)
@@ -1117,7 +1119,7 @@ def handle_mario_project_final(speed_mario, mqtt_sender):
 
 ############################## Tabuo Final #############################################
 
-def handle_cup_remover(speed, mqtt_sender):
+def handle_cup_remover(speed, table, mqtt_sender):
     """
         Tells the robot to move its Arm to the position in the given Entry box.
         The robot must have previously calibrated its Arm.

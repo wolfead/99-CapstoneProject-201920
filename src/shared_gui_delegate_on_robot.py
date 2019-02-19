@@ -346,9 +346,9 @@ class Handler(object):
         self.robot.drive_system.go(int(speed), -int(speed))
         color = self.robot.sensor_system.color_sensor.get_color()
         while True:
-            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() > int(table):
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() > int(table) / 2:
                 self.robot.drive_system.go(int(speed), -int(speed))
-            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() < int(table):
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() < int(table) / 2:
                 self.robot.drive_system.go(int(speed) / 2, int(speed) / 2)
                 print('retrieving')
                 if self.robot.sensor_system.camera.get_biggest_blob().get_area() > 400:
