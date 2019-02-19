@@ -302,12 +302,14 @@ class Handler(object):
 # ###################################### HAIDEN'S FINAL CODE ##########################################################
     def mario_forward(self, speed):
         self.robot.drive_system.go(int(speed), int(speed))
-        n = 4000
+        n = 1000
         while True:
             if self.robot.sensor_system.color_sensor.get_color() == 5:
+                self.robot.drive_system.stop()
                 for k in range(3):
-                    self.robot.sound_system.tone_maker.play_tone(n, 1000)
-                    n = n - 1000
+                    self.robot.sound_system.tone_maker.play_tone(n, 2000)
+                    n = n - 200
+                self.robot.sound_system.speech_maker.speak("Oh no you lost")
                 # root1 = tkinter.Tk()
                 # root1.title("Haiden's Final Mario graphic")
                 # root1.geometry("500x500")
@@ -339,7 +341,7 @@ class Handler(object):
                 self.robot.drive_system.stop()
 
                 if self.robot.sensor_system.touch_sensor.is_pressed:
-                    self.robot.sound_system.speech_maker.speak('Ya Who')
+                    self.robot.sound_system.speech_maker.speak('Ya Who Its uh me mario')
                     # root1 = tkinter.Tk()
                     # root1.title("Haiden's Final Mario graphic")
                     # root1.geometry("500x500")
