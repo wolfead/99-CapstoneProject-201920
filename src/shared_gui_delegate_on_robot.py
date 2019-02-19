@@ -373,7 +373,7 @@ class Handler(object):
                     self.robot.drive_system.stop()
                     self.robot.drive_system.go(int(speed), int(speed))
                     break
-                if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches < 3:
+                if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() < 3:
                     print('Object Found!')
                     self.robot.arm_and_claw.lower_arm()
                     self.robot.drive_system.go_straight_for_inches_using_encoder(3, int(speed))
