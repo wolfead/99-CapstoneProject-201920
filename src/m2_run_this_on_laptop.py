@@ -37,7 +37,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame, arm_frame, control_frame, drive_system_frame, tubuyo_frame = get_shared_frames(
+    teleop_frame, arm_frame, control_frame, drive_system_frame, tubuyo_frame, cup_remover_frame = get_shared_frames(
         main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
@@ -48,7 +48,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, tubuyo_frame)
+    grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, tubuyo_frame, cup_remover_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -62,15 +62,17 @@ def get_shared_frames(main_frame, mqtt_sender):
     control_frame = shared_gui.get_control_frame(main_frame, mqtt_sender)
     drive_system_frame = shared_gui.get_drive_system_frame(main_frame, mqtt_sender)
     tubuyo_frame = shared_gui.get_tubuyo_frame(main_frame, mqtt_sender)
-    return teleop_frame, arm_frame, control_frame, drive_system_frame, tubuyo_frame
+    cup_remover_frame = shared_gui.get_cup_remover(main_frame, mqtt_sender)
+    return teleop_frame, arm_frame, control_frame, drive_system_frame, tubuyo_frame, cup_remover_frame
 
 
-def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, tubuyo_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, tubuyo_frame, cup_remover_frame):
     teleop_frame.grid(row=0, column=0)
     arm_frame.grid(row=1, column=0)
     control_frame.grid(row=1, column=1)
     drive_system_frame.grid(row=0, column=1)
     tubuyo_frame.grid(row=0, column=2)
+    cup_remover_frame.grid(row=1, column=2)
 
 
 # -----------------------------------------------------------------------------

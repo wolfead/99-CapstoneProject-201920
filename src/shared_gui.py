@@ -107,7 +107,7 @@ def get_cup_remover(window, mqtt_sender):
     frame.grid()
 
     # Construct the widgets on the frame:
-    frame_label = ttk.Label(frame, text="Sorting System")
+    frame_label = ttk.Label(frame, text="Cup remover")
     frame_label.grid(row=0, column=1)
     speed_label = ttk.Label(frame, text="Wheel speed: 0 to 100")
     speed_label.grid(row=1, column=0)
