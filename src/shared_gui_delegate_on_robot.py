@@ -8,6 +8,7 @@
 """
 import time
 import tkinter
+import rosebot
 
 class Handler(object):
     def __init__(self, robot):
@@ -345,5 +346,31 @@ class Handler(object):
                 canvas = tkinter.Canvas(root1, width='800', height='800', bg='tan')
                 canvas.grid()
                 canvas.create_text(200, 200, text="Game Over")
+
+    def cup_remover(self, speed):
+        self.robot.drive_system.go(int(speed), -int(speed))
+        color = self.robot.sensor_system.color_sensor.get_color()
+        while True:
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() < 20:
+                self.robot.drive_system.go(int(speed) / 2, int(speed) / 2)
+                if self.robot.sensor_system.camera.get_biggest_blob().get_area() > 400:
+                    self.robot.drive_system.stop()
+                    self.robot.sound_system.speech_maker.speak('Sorry')
+                if color != self.robot.sensor_system.color_sensor.get_color():
+                    self.robot.sound_system.speech_maker.speak('Out of Bounds!')
+                    self.robot.drive_system.go(-int(speed), -int(speed))
+                    time.sleep(0.5)
+                    self.robot.drive_system.stop()
+                    self.robot.drive_system.go(int(speed), -int(speed))
+                if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches < 6:
+                    self.robot.arm_and_claw.lower_arm()
+                    self.robot.drive_system.go_straight_for_inches_using_encoder(3, int(speed))
+                    self.robot.arm_and_claw.move_arm_to_position(3500)
+                    self.robot.drive_system.go(int(speed), int(speed))
+                    if color != self.robot.sensor_system.color_sensor.get_color():
+                        self.robot.drive_system.stop()
+                        self.robot.arm_and_claw.lower_arm()
+                        self.robot.sound_system.speech_maker.speak('All done!')
+                        break
 
 

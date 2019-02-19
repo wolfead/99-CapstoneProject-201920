@@ -93,6 +93,35 @@ def get_tubuyo_frame(window, mqtt_sender):
 
     return frame
 
+def get_cup_remover(window, mqtt_sender):
+    """
+    Constructs and returns a frame on the given window, where the frame
+    has Entry and Button objects that control the EV3 robot's motion
+    has Entry and Button objects that control the EV3 robot's motion
+    by passing messages using the given MQTT Sender.
+      :type  window:       ttk.Frame | ttk.Toplevel
+      :type  mqtt_sender:  com.MqttClient
+    """
+    # Construct the frame to return:
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Sorting System")
+    frame_label.grid(row=0, column=1)
+    speed_label = ttk.Label(frame, text="Wheel speed: 0 to 100")
+    speed_label.grid(row=1, column=0)
+    speed = ttk.Entry(frame, width=8)
+    speed.grid(row=2, column=0)
+
+    start_button = ttk.Button(frame, text="start")
+    start_button.grid(row=2, column=2)
+
+    # call backs
+    start_button["command"] = lambda: handle_cup_remover(speed, mqtt_sender)
+
+    return frame
+
 
 def get_wolfe_frame(window, mqtt_sender):
     """
@@ -1081,4 +1110,15 @@ def handle_mario_project_final(speed_mario, mqtt_sender):
       :type  mqtt_sender:        com.MqttClient
     """
     mqtt_sender.send_message('mario_forward', [speed_mario.get()])
+
+############################## Tabuo Final #############################################
+
+def handle_cup_remover(speed, mqtt_sender):
+    """
+        Tells the robot to move its Arm to the position in the given Entry box.
+        The robot must have previously calibrated its Arm.
+          :type  speed ttk.Entry
+          :type  mqtt_sender:        com.MqttClient
+        """
+    mqtt_sender.send_message('cup_remover', [speed.get()])
 
