@@ -75,6 +75,10 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, tubu
     cup_remover_frame.grid(row=1, column=2)
 
 
+class Laptop_Reciever(object):
+    def print_cup_count(self, n):
+        print('I have removed:', n, 'cups!')
+
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------

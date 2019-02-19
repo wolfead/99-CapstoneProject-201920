@@ -7,14 +7,14 @@
   Winter term, 2018-2019.
 """
 import time
-# import mqtt_remote_method_calls as com
+import mqtt_remote_method_calls as com
 
 
 class Handler(object):
     def __init__(self, robot):
         self.robot = robot
         self.is_time_to_stop = False
-        # self.mqtt_robot_sender = com.MqttClient()
+        self.mqtt_robot_sender = com.MqttClient()
 
         """
         :type robot: rosebot.RoseBot
@@ -345,6 +345,7 @@ class Handler(object):
     def cup_remover(self, speed, table):
         self.robot.drive_system.go(int(speed), -int(speed))
         color = self.robot.sensor_system.color_sensor.get_color()
+        count = 0
         while True:
             if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() > int(table) / 2:
                 self.robot.drive_system.go(int(speed), -int(speed))
@@ -377,12 +378,15 @@ class Handler(object):
                     self.robot.drive_system.go(int(speed) / 2, int(speed) / 2)
                     while True:
                         if color != self.robot.sensor_system.color_sensor.get_color():
+                            count = count + 1
                             self.robot.drive_system.stop()
                             self.robot.arm_and_claw.lower_arm()
                             self.robot.sound_system.speech_maker.speak('All done!')
                             self.robot.drive_system.go(-int(speed) / 2, -int(speed) / 2)
                             time.sleep(2)
                             self.robot.drive_system.stop()
+                            self.mqtt_robot_sender.connect_to_pc()
+                            self.mqtt_robot_sender.send_message('print_cups_removed',[count])
                             break
 
 
