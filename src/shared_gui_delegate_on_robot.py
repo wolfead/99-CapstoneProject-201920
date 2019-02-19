@@ -379,10 +379,11 @@ class Handler(object):
                     self.robot.drive_system.go_straight_for_inches_using_encoder(3, int(speed))
                     self.robot.arm_and_claw.move_arm_to_position(3500)
                     self.robot.drive_system.go(int(speed) / 2, int(speed) / 2)
-                    if color != self.robot.sensor_system.color_sensor.get_color():
-                        self.robot.drive_system.stop()
-                        self.robot.arm_and_claw.lower_arm()
-                        self.robot.sound_system.speech_maker.speak('All done!')
-                        break
+                    while True:
+                        if color != self.robot.sensor_system.color_sensor.get_color():
+                            self.robot.drive_system.stop()
+                            self.robot.arm_and_claw.lower_arm()
+                            self.robot.sound_system.speech_maker.speak('All done!')
+                            break
 
 
