@@ -386,7 +386,9 @@ class Handler(object):
                             self.robot.drive_system.stop()
                             self.robot.arm_and_claw.lower_arm()
                             self.robot.sound_system.speech_maker.speak('All done!')
-                            self.robot.drive_system.go_straight_for_inches_using_encoder(-6, int(speed) / 2)
+                            self.robot.drive_system.go(-int(speed) / 2, -int(speed) / 2)
+                            time.sleep(1)
+                            self.robot.drive_system.stop()
                             break
 
 
