@@ -363,22 +363,22 @@ class Handler(object):
                     self.robot.sound_system.speech_maker.speak('Sorry')
                     self.robot.drive_system.go_straight_for_inches_using_encoder(10, -int(speed))
                     break
-                if color != self.robot.sensor_system.color_sensor.get_color():
-                    self.robot.sound_system.speech_maker.speak('Out of Bounds!')
-                    self.robot.drive_system.go(-int(speed), -int(speed))
-                    time.sleep(0.5)
-                    self.robot.drive_system.stop()
-                    self.robot.drive_system.go(int(speed), -int(speed))
-                    time.sleep(1)
-                    self.robot.drive_system.stop()
-                    self.robot.drive_system.go(int(speed), int(speed))
-                    break
+                # if color != self.robot.sensor_system.color_sensor.get_color():
+                #     self.robot.sound_system.speech_maker.speak('Out of Bounds!')
+                #     self.robot.drive_system.go(-int(speed), -int(speed))
+                #     time.sleep(0.5)
+                #     self.robot.drive_system.stop()
+                #     self.robot.drive_system.go(int(speed), -int(speed))
+                #     time.sleep(1)
+                #     self.robot.drive_system.stop()
+                #     self.robot.drive_system.go(int(speed), int(speed))
+                #     break
                 if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() < 3:
                     print('Object Found!')
                     self.robot.arm_and_claw.lower_arm()
                     self.robot.drive_system.go_straight_for_inches_using_encoder(3, int(speed))
                     self.robot.arm_and_claw.move_arm_to_position(3500)
-                    self.robot.drive_system.go(int(speed), int(speed))
+                    self.robot.drive_system.go(int(speed) / 2, int(speed) / 2)
                     if color != self.robot.sensor_system.color_sensor.get_color():
                         self.robot.drive_system.stop()
                         self.robot.arm_and_claw.lower_arm()
