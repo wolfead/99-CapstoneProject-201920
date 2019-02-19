@@ -316,9 +316,10 @@ class Handler(object):
                 canvas = tkinter.Canvas(root1, width='800', height='800', bg='tan')
                 canvas.grid()
                 canvas.create_text(200, 200, text="Game Over")
+                break
 
             if self.robot.sensor_system.color_sensor.get_color() == 3:
-                self.robot.arm_and_claw.calibrate_arm()
+                # self.robot.arm_and_claw.calibrate_arm()
                 self.robot.drive_system.go(int(speed), int(speed))
                 beeper = self.robot.sound_system.beeper
                 while True:
@@ -334,18 +335,20 @@ class Handler(object):
                     avg = (data1 + data2 + data3) / 3
                     time.sleep(0.01 * (1 + avg))
                 self.robot.drive_system.go_straight_for_inches_using_encoder(3, int(speed))
-                self.robot.arm_and_claw.move_arm_to_position(4000)
+                # self.robot.arm_and_claw.move_arm_to_position(4000)
+                self.robot.arm_and_claw.raise_arm()
                 self.robot.drive_system.stop()
 
-            if self.robot.sensor_system.touch_sensor.is_pressed:
-                self.robot.sound_system.speech_maker.speak('Ya Who')
-                root1 = tkinter.Tk()
-                root1.title("Haiden's Final Mario graphic")
-                root1.geometry("500x500")
+                if self.robot.sensor_system.touch_sensor.is_pressed:
+                    self.robot.sound_system.speech_maker.speak('Ya Who')
+                    root1 = tkinter.Tk()
+                    root1.title("Haiden's Final Mario graphic")
+                    root1.geometry("500x500")
 
-                canvas = tkinter.Canvas(root1, width='800', height='800', bg='tan')
-                canvas.grid()
-                canvas.create_text(200, 200, text="Game Over")
+                    canvas = tkinter.Canvas(root1, width='800', height='800', bg='tan')
+                    canvas.grid()
+                    canvas.create_text(200, 200, text="Game Over")
+                    break
 
     def cup_remover(self, speed):
         self.robot.drive_system.go(int(speed), -int(speed))
