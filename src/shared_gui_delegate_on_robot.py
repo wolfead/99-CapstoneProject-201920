@@ -305,7 +305,7 @@ class Handler(object):
         self.robot.drive_system.go(int(speed), int(speed))
         n = 4000
         while True:
-            if self.robot.sensor_system.color_sensor.get_color() >= 7:
+            if self.robot.sensor_system.color_sensor.get_color() = 5:
                 for k in range(3):
                     self.robot.sound_system.tone_maker.play_tone(n, 1000)
                     n = n - 1000
@@ -317,7 +317,7 @@ class Handler(object):
                 canvas.grid()
                 canvas.create_text(200, 200, text="Game Over")
 
-            if self.robot.sensor_system.color_sensor.get_color() <= 3:
+            if self.robot.sensor_system.color_sensor.get_color() = 3:
                 self.robot.arm_and_claw.calibrate_arm()
                 self.robot.drive_system.go(int(speed), int(speed))
                 beeper = self.robot.sound_system.beeper
