@@ -376,7 +376,7 @@ class Handler(object):
                 if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() < 3:
                     print('Object Found!')
                     self.robot.arm_and_claw.lower_arm()
-                    self.robot.drive_system.go_straight_for_inches_using_encoder(3, int(speed))
+                    self.robot.drive_system.go_straight_for_inches_using_encoder(3, int(speed) / 2)
                     self.robot.arm_and_claw.move_arm_to_position(3500)
                     self.robot.drive_system.go(int(speed) / 2, int(speed) / 2)
                     while True:
@@ -384,6 +384,7 @@ class Handler(object):
                             self.robot.drive_system.stop()
                             self.robot.arm_and_claw.lower_arm()
                             self.robot.sound_system.speech_maker.speak('All done!')
+                            self.robot.drive_system.go(-int(speed), -int(speed))
                             break
 
 
