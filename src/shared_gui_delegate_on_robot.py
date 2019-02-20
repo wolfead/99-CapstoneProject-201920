@@ -14,7 +14,8 @@ class Handler(object):
     def __init__(self, robot):
         self.robot = robot
         self.is_time_to_stop = False
-        self.mqtt_sender = None
+        self.mqtt_sender = com.MqttClient(robot)
+        self.mqtt_sender.connect_to_pc()
 
         """
         :type robot: rosebot.RoseBot
@@ -342,7 +343,6 @@ class Handler(object):
 
     def cup_remover(self, speed, table):
         self.robot.drive_system.go(int(speed), -int(speed))
-        self.mqtt_sender.connect_to_pc()
         color = self.robot.sensor_system.color_sensor.get_color()
         count = 0
         while True:
@@ -371,8 +371,7 @@ class Handler(object):
                 #     break
                 if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() < 3:
                     print('Object Found!')
-                    self.robot.arm_and_claw.lower_arm()
-                    self.robot.drive_system.go_straight_for_inches_using_encoder(5, int(speed) / 2)
+                    self.robot.drive_system.go_straight_for_inches_using_encoder(6, int(speed) / 2)
                     self.robot.arm_and_claw.move_arm_to_position(3500)
                     self.robot.drive_system.go(int(speed) / 2, int(speed) / 2)
                     while True:
