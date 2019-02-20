@@ -96,7 +96,11 @@ class Laptop_handler(object):
         canvas.create_text(250, 250, text="GAME OVER")
         canvas.create_text(250, 270, text="YOU WIN")
 
-    def anything(self, string):
-        print(string)
+    def lose(self):
         self.window_one(self.root)
+
+    def win(self):
+        self.window_two(self.root)
+
+
 main()

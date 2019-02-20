@@ -310,10 +310,10 @@ class Handler(object):
             if self.robot.sensor_system.color_sensor.get_color() == 5:
                 self.robot.drive_system.stop()
                 for k in range(3):
-                    self.robot.sound_system.tone_maker.play_tone(n, 2000)
+                    self.robot.sound_system.tone_maker.play_tone(n, 1000)
                     n = n - 200
                 self.robot.sound_system.speech_maker.speak("Oh no you lost")
-                self.mqtt_sender.send_message('window_one')
+                self.mqtt_sender.send_message('lose', [])
                 break
 
             if self.robot.sensor_system.color_sensor.get_color() == 3:
@@ -337,7 +337,7 @@ class Handler(object):
 
                 if self.robot.sensor_system.touch_sensor.is_pressed:
                     self.robot.sound_system.speech_maker.speak('Ya Who Its uh me mario')
-                    self.mqtt_sender.send_message('window_two')
+                    self.mqtt_sender.send_message('win', [])
                     break
 
     def cup_remover(self, speed, table):
