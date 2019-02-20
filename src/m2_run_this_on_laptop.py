@@ -22,7 +22,8 @@ def main():
     # -------------------------------------------------------------------------
     # Construct and connect the MQTT Client:
     # -------------------------------------------------------------------------
-    mqtt_sender = com.MqttClient()
+    pc_delegate = Laptop_Reciever()
+    mqtt_sender = com.MqttClient(pc_delegate)
     mqtt_sender.connect_to_ev3()
     # -------------------------------------------------------------------------
     # The root TK object for the GUI:
@@ -50,6 +51,8 @@ def main():
     # -------------------------------------------------------------------------
     grid_frames(cup_remover_frame)
     # teleop_frame, arm_frame, control_frame, drive_system_frame, tubuyo_frame,
+
+
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -81,6 +84,8 @@ def grid_frames(cup_remover_frame):
 class Laptop_Reciever(object):
     def print_cup_count(self, n):
         print('I have removed:', n, 'cups!')
+
+
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.

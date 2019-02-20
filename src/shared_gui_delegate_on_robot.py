@@ -387,7 +387,7 @@ class Handler(object):
                             self.robot.drive_system.go(-int(speed) / 2, -int(speed) / 2)
                             time.sleep(2)
                             self.robot.drive_system.stop()
-                            self.mqtt_robot_sender.send_message('print_cup_count', [count])
+                            self.mqtt_robot_sender.send_message('print_cup_count', count)
                             break
 
 
