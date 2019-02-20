@@ -14,8 +14,7 @@ class Handler(object):
     def __init__(self, robot):
         self.robot = robot
         self.is_time_to_stop = False
-        self.mqtt_robot_sender = com.MqttClient(robot)
-        self.mqtt_robot_sender.connect_to_pc()
+        self.mqtt_sender = None
 
         """
         :type robot: rosebot.RoseBot
@@ -24,6 +23,7 @@ class Handler(object):
     def forward(self, left_wheel_speed, right_wheel_speed):
         print('got forward', left_wheel_speed, right_wheel_speed)
         self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
+        self.mqtt_sender.send_message('anything', ["string along"])
 
     def m1forward(self, left_wheel_speed, right_wheel_speed):
         if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() < 4:
@@ -31,7 +31,6 @@ class Handler(object):
         else:
             self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
             print('Going Forward')
-
 
     def m1backward(self, left_motor_speed, right_motor_speed):
 
@@ -314,8 +313,7 @@ class Handler(object):
                     self.robot.sound_system.tone_maker.play_tone(n, 2000)
                     n = n - 200
                 self.robot.sound_system.speech_maker.speak("Oh no you lost")
-                # self.mqtt_robot_sender.connect_to_pc()
-                # self.mqtt_robot_sender.send_message('window_one')
+                self.mqtt_sender.send_message('window_one')
                 break
 
             if self.robot.sensor_system.color_sensor.get_color() == 3:
@@ -339,13 +337,12 @@ class Handler(object):
 
                 if self.robot.sensor_system.touch_sensor.is_pressed:
                     self.robot.sound_system.speech_maker.speak('Ya Who Its uh me mario')
-                    # self.mqtt_robot_sender.connect_to_pc()
-                    # self.mqtt_robot_sender.send_message('window_two')
+                    self.mqtt_sender.send_message('window_two')
                     break
 
     def cup_remover(self, speed, table):
         self.robot.drive_system.go(int(speed), -int(speed))
-        self.mqtt_robot_sender.connect_to_pc()
+        self.mqtt_sender.connect_to_pc()
         color = self.robot.sensor_system.color_sensor.get_color()
         count = 0
         while True:
@@ -387,7 +384,7 @@ class Handler(object):
                             self.robot.drive_system.go(-int(speed) / 2, -int(speed) / 2)
                             time.sleep(2)
                             self.robot.drive_system.stop()
-                            self.mqtt_robot_sender.send_message('print_cup_count', count)
+                            self.mqtt_sender.send_message('print_cup_count', count)
                             break
 
 

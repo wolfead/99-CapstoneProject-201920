@@ -28,6 +28,7 @@ def real_thing():
     robot = rosebot.RoseBot()
     delegate = shared_gui_delegate_on_robot.Handler(robot)
     mqtt_receiver = com.MqttClient(delegate)
+    delegate.mqtt_sender = mqtt_receiver
     mqtt_receiver.connect_to_pc()
 
     while True:

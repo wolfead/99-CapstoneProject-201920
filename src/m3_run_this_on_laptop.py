@@ -22,32 +22,32 @@ def main():
     # -------------------------------------------------------------------------
     # Construct and connect the MQTT Client:
     # -------------------------------------------------------------------------
-    mqtt_sender = com.MqttClient()
-    mqtt_sender.connect_to_ev3()
-
-    root = tkinter.Tk()
-    root.title("CSSE 120 Capstone Project, Winter 2018-19, Robot 11")
-
     # ROOT ONE LOSE
     root1 = tkinter.Tk()
+    laptop_handler_lose = Laptop_handler(root1)
+    mqtt_sender = com.MqttClient(laptop_handler_lose)
+    mqtt_sender.connect_to_ev3()
 
-    # ROOT TWO WIN
-    root2 = tkinter.Toplevel()
+    root = tkinter.Toplevel()
+    root.title("CSSE 120 Capstone Project, Winter 2018-19, Robot 11")
+
+    # # ROOT TWO WIN
+    # root2 = tkinter.Toplevel()
 
     main_frame = ttk.Frame(root, padding=10, borderwidth=5, relief='groove')
     main_frame.grid()
 
-    laptop_handler_lose = Laptop_handler(root1)
-    laptop_handler_win = Laptop_handler(root2)
-    laptop_handler_lose.window_two(root1)
-    laptop_handler_win.window_one(root2)
+    # laptop_handler_lose = Laptop_handler(root1)
+    # laptop_handler_win = Laptop_handler(root2)
+    # laptop_handler_lose.window_two(root1)
+    # laptop_handler_win.window_one(root2)
 
     teleop_frame, arm_frame, control_frame, drive_system_frame, haiden_frame, mario_frame = get_shared_frames(
         main_frame, mqtt_sender)
 
     grid_frames(teleop_frame, arm_frame, control_frame, drive_system_frame, haiden_frame, mario_frame)
 
-    main_frame.mainloop()
+    root.mainloop()
 
 
 def get_shared_frames(main_frame, mqtt_sender):
@@ -96,5 +96,7 @@ class Laptop_handler(object):
         canvas.create_text(250, 250, text="GAME OVER")
         canvas.create_text(250, 270, text="YOU WIN")
 
-
+    def anything(self, string):
+        print(string)
+        self.window_one(self.root)
 main()
