@@ -143,6 +143,44 @@ def run_follow_a_color():
         saved_x = robot.sensor_system.camera.get_biggest_blob().center.x
         saved_area = robot.sensor_system.camera.get_biggest_blob().get_area()
 
+# # ###################################### HAIDEN'S FINAL CODE #############In Shared Gui delegate###################
+#     def mario_forward(self, speed):
+#         self.robot.drive_system.go(int(speed), int(speed))
+#         n = 1000
+#         while True:
+#             if self.robot.sensor_system.color_sensor.get_color() == 5:
+#                 self.robot.drive_system.stop()
+#                 for k in range(3):
+#                     self.robot.sound_system.tone_maker.play_tone(n, 1000)
+#                     n = n - 200
+#                 self.robot.sound_system.speech_maker.speak("Oh no you lost")
+#                 self.mqtt_sender.send_message('lose', [])
+#                 break
+#
+#             if self.robot.sensor_system.color_sensor.get_color() == 3:
+#                 self.robot.drive_system.go(int(speed), int(speed))
+#                 beeper = self.robot.sound_system.beeper
+#                 while True:
+#                     beeper.beep()
+#                     if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 2:
+#                         self.robot.drive_system.stop()
+#                         break
+#                     data1 = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+#                     time.sleep(0.01)
+#                     data2 = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+#                     time.sleep(0.01)
+#                     data3 = self.robot.sensor_system.ir_proximity_sensor.get_distance()
+#                     avg = (data1 + data2 + data3) / 3
+#                     time.sleep(0.01 * (1 + avg))
+#                 self.robot.drive_system.go_straight_for_inches_using_encoder(3, int(speed))
+#                 self.robot.arm_and_claw.raise_arm()
+#                 self.robot.drive_system.stop()
+#
+#                 if self.robot.sensor_system.touch_sensor.is_pressed:
+#                     self.robot.sound_system.speech_maker.speak('Ya Who Its uh me mario')
+#                     self.mqtt_sender.send_message('win', [])
+#                     break
+
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
